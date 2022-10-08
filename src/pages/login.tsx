@@ -4,9 +4,9 @@ import { LoginForm } from "../components";
 
 const Login = () => {
   return (
-    <div className="w-full py-10 px-0 flex justify-center mb-20">
-      <div className="max-w-md w-full py-11 px-7 border border-solid border-gray-200">
-        <h3 className="uppercase text-center mb-4 text-2xl">Login</h3>
+    <div className="w-full py-10 px-0 flex justify-center mb-32">
+      <div className="max-w-md w-full py-11 px-7 border border-solid border-gray-200 bg-white">
+        <h3 className="text-center mb-4 text-2xl">Login</h3>
 
         <LoginForm />
 

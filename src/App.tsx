@@ -5,7 +5,7 @@ import { PageRender } from "./customRouter";
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-gray-100">
       <Header />
 
       <Routes>
