@@ -4,6 +4,13 @@ import {
   setAlertLoading,
   setAlertError,
   setAlertSuccess,
+  closeToast,
 } from "./slices/alertSlice";
 
-export { loginUser, setAlertLoading, setAlertError, setAlertSuccess };
+export {
+  loginUser,
+  setAlertLoading,
+  setAlertError,
+  setAlertSuccess,
+  closeToast,
+};

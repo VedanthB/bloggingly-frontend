@@ -22,11 +22,17 @@ const alertSlice = createSlice({
       state.loading = false;
       state.success = payload.success;
     },
+    closeToast: (state, { payload }) => {
+      state.loading = false;
+      state.error = null;
+      state.success = null;
+    },
   },
 });
 
 const { reducer, actions } = alertSlice;
 
-export const { setAlertLoading, setAlertError, setAlertSuccess } = actions;
+export const { setAlertLoading, setAlertError, setAlertSuccess, closeToast } =
+  actions;
 
 export default reducer;

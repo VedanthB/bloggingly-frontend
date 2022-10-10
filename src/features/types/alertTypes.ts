@@ -1,5 +1,5 @@
 export interface IAlert {
   loading?: boolean;
-  success?: string | string[];
-  error?: string | string[];
+  success?: null | string | string[];
+  error?: null | string | string[];
 }
