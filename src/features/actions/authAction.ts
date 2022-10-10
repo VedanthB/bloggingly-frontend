@@ -1,4 +1,3 @@
-import { IAuth } from "./../types/authTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { postAPI } from "../../utils/FetchData";
 import { IUserLogin } from "../../utils/TypeScript";
