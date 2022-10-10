@@ -17,7 +17,7 @@ const Toast = ({ title, body, bgColor }: IProps) => {
   return (
     <div
       id="toast-notification"
-      className="p-4 w-full max-w-xs fixed text-gray-900 bg-white rounded-lg shadow"
+      className={`p-4 w-full max-w-xs fixed text-gray-900  rounded-lg shadow ${bgColor} `}
       style={{ top: "5px", right: "5px", zIndex: 50, minWidth: "200px" }}
       role="alert"
     >
