@@ -17,18 +17,18 @@ const Toast = ({ title, body, bgColor }: IProps) => {
   return (
     <div
       id="toast-notification"
-      className={`p-4 w-full max-w-xs fixed text-gray-900  rounded-lg shadow ${bgColor} `}
-      style={{ top: "5px", right: "5px", zIndex: 50, minWidth: "200px" }}
+      className={`p-4 w-full max-w-xs fixed text-white  rounded-lg shadow ${bgColor} `}
+      style={{ top: "1rem", right: "1rem", zIndex: 50, minWidth: "200px" }}
       role="alert"
     >
       <div className="flex items-center mb-3">
-        <span className="mb-1 text-sm font-semibold text-gray-900">
-          {title}
-        </span>
+        <span className="mb-1 text-sm font-semibold text-white">{title}</span>
 
         <button
           type="button"
-          className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8"
+          className={`ml-auto -mx-1.5 -my-1.5 ${bgColor} text-gray-800 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 ${
+            bgColor === "bg-red-500" ? "hover:bg-red-200" : "hover:bg-green-200"
+          }  inline-flex h-8 w-8`}
           data-dismiss-target="#toast-notification"
           aria-label="Close"
           onClick={handleClose}
@@ -49,6 +49,7 @@ const Toast = ({ title, body, bgColor }: IProps) => {
           </svg>
         </button>
       </div>
+
       <div className="flex items-center">
         <div className="ml-3 text-sm font-normal">
           <div className="text-sm font-normal">
