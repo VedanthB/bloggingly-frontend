@@ -1,3 +1,9 @@
 import { loginUser } from "./actions/authAction";
 
-export { loginUser };
+import {
+  setAlertLoading,
+  setAlertError,
+  setAlertSuccess,
+} from "./slices/alertSlice";
+
+export { loginUser, setAlertLoading, setAlertError, setAlertSuccess };
