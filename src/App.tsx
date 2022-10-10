@@ -10,11 +10,13 @@ const App = () => {
 
       <Alert />
 
-      <Routes>
-        <Route path="/" element={<PageRender />} />
-        <Route path="/:page" element={<PageRender />} />
-        <Route path="/:page/:slug" element={<PageRender />} />
-      </Routes>
+      <div className="relative top-[5.5rem]">
+        <Routes>
+          <Route path="/" element={<PageRender />} />
+          <Route path="/:page" element={<PageRender />} />
+          <Route path="/:page/:slug" element={<PageRender />} />
+        </Routes>
+      </div>
 
       <Footer />
     </div>
