@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
+import { registerUser } from "../../features";
 
 import { FormSubmit, InputChange } from "../../utils/TypeScript";
 
@@ -23,7 +24,7 @@ const RegisterForm = () => {
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault();
 
-    // dispatch(registerUser(userLogin));
+    dispatch(registerUser(userLogin));
   };
 
   return (

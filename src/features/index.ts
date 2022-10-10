@@ -1,4 +1,4 @@
-import { loginUser } from "./actions/authAction";
+import { loginUser, registerUser } from "./actions/authAction";
 
 import {
   setAlertLoading,
@@ -13,4 +13,5 @@ export {
   setAlertError,
   setAlertSuccess,
   closeToast,
+  registerUser,
 };
