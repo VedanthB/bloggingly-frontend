@@ -1,12 +1,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Footer, Header } from "./components";
+import { Alert, Footer, Header } from "./components";
 import { PageRender } from "./customRouter";
 
 const App = () => {
   return (
     <div className="bg-gray-100">
       <Header />
+
+      <Alert />
 
       <Routes>
         <Route path="/" element={<PageRender />} />

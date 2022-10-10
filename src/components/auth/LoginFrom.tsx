@@ -21,11 +21,9 @@ const LoginForm = () => {
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault();
-    console.log("i run");
+
     dispatch(loginUser(userLogin));
   };
-
-  console.log(userLogin);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -75,7 +73,7 @@ const LoginForm = () => {
       <button
         type="submit"
         className="text-white cursor-pointer w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-        // disabled={email && password ? false : true}
+        disabled={email.length > 0 && password.length > 0 ? false : true}
       >
         Login
       </button>

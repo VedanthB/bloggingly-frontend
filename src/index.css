@@ -16,3 +16,6 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* -------- Loader ---------- */
+@import url("./components/alert/Loader.css");
