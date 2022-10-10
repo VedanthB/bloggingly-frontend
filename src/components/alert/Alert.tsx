@@ -21,3 +21,11 @@ const Alert = () => {
 };
 
 export default Alert;
+
+export const showErrMsg = (msg: string) => {
+  return <div className="errMsg">{msg}</div>;
+};
+
+export const showSuccessMsg = (msg: string) => {
+  return <div className="successMsg">{msg}</div>;
+};
