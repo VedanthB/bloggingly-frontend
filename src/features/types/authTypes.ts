@@ -4,6 +4,6 @@ export const AUTH = "AUTH";
 
 export interface IAuth {
   msg?: null | string;
-  active_token?: null | string;
+  access_token?: null | string;
   user?: null | IUser;
 }

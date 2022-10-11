@@ -5,8 +5,8 @@ import Search from "./Search";
 
 const Header = () => {
   return (
-    <nav className="w-full bg-white h-[5.5rem] z-50 fixed shadow">
-      <div className="px-6 py-4 w-full flex justify-between items-center m-auto">
+    <nav className="w-full bg-white h-16 z-50 fixed">
+      <div className="px-6 py-1 w-full flex justify-between items-center m-auto">
         <Logo />
 
         <Search />
