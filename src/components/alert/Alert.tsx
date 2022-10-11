@@ -23,9 +23,17 @@ const Alert = () => {
 export default Alert;
 
 export const showErrMsg = (msg: string) => {
-  return <div className="errMsg">{msg}</div>;
+  return (
+    <div className="text-center bg-red-300 text-gray-800 p-4 rounded">
+      {msg}
+    </div>
+  );
 };
 
 export const showSuccessMsg = (msg: string) => {
-  return <div className="successMsg">{msg}</div>;
+  return (
+    <div className="text-center bg-green-300 text-gray-800 p-4 rounded">
+      {msg}
+    </div>
+  );
 };

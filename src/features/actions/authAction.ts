@@ -7,6 +7,7 @@ import {
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
+import { IAuth } from "../types/authTypes";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -18,10 +19,7 @@ export const loginUser = createAsyncThunk(
 
       thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
 
-      return {
-        token: res.data.access_token,
-        user: res.data.user,
-      };
+      return res as IAuth;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
