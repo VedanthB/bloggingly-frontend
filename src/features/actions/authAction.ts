@@ -19,7 +19,7 @@ export const loginUser = createAsyncThunk(
 
       thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
 
-      return res as IAuth;
+      return res.data as IAuth;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

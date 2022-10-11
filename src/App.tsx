@@ -10,7 +10,7 @@ const App = () => {
 
       <Alert />
 
-      <div className="relative top-[5.5rem]">
+      <div className="relative top-16">
         <Routes>
           <Route path="/" element={<PageRender />} />
           <Route path="/:page" element={<PageRender />} />

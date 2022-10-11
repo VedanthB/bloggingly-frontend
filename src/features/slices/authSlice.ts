@@ -4,7 +4,7 @@ import { IAuth } from "../types/authTypes";
 
 const initialState = {
   msg: null,
-  active_token: null,
+  access_token: null,
   user: null,
 } as IAuth;
 
@@ -15,7 +15,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.msg = action.payload?.msg;
-      state.active_token = action.payload?.active_token;
+      state.access_token = action.payload?.access_token;
       state.user = action.payload?.user;
     });
     builder.addCase(loginUser.rejected, (state, action) => {});
