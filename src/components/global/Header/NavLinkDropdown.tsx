@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../../app/hooks";
-import logo from "../../../assets/logo.png";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { logout } from "../../../features";
 
 const NavLinkDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -9,6 +9,8 @@ const NavLinkDropdown = () => {
   const {
     auth: { user },
   } = useAppSelector((state) => state);
+
+  const dispatch = useAppDispatch();
 
   return (
     <div>
@@ -51,21 +53,18 @@ const NavLinkDropdown = () => {
         </div>
         <ul className="py-1 text-sm text-gray-700 ">
           <li>
-            <a
-              // href="#"
-              className="block py-2 px-4 hover:bg-gray-100"
-            >
+            <Link to="profile" className="block py-2 px-4 hover:bg-gray-100">
               Profile
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="py-1">
-          <a
-            // href="#"
+          <li
+            onClick={() => dispatch(logout())}
             className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
           >
             Sign out
-          </a>
+          </li>
         </div>
       </div>
     </div>

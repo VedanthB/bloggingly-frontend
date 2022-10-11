@@ -1,4 +1,9 @@
-import { loginUser, registerUser } from "./actions/authAction";
+import {
+  loginUser,
+  registerUser,
+  refreshToken,
+  logout,
+} from "./actions/authAction";
 
 import {
   setAlertLoading,
@@ -14,4 +19,6 @@ export {
   setAlertSuccess,
   closeToast,
   registerUser,
+  refreshToken,
+  logout,
 };

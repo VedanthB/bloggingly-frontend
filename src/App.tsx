@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useAppDispatch } from "./app/hooks";
 import { Alert, Footer, Header } from "./components";
 import { PageRender } from "./customRouter";
+import { refreshToken } from "./features";
 
 const App = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("loggedIn");
+    dispatch(refreshToken(isLoggedIn));
+  }, [dispatch]);
+
   return (
     <div className="bg-gray-100">
       <Header />
