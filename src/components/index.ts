@@ -4,6 +4,7 @@ import Footer from "./global/Footer";
 import LoginForm from "./auth/LoginForm";
 import Alert, { showErrMsg, showSuccessMsg } from "./alert/Alert";
 import RegisterForm from "./auth/RegisterForm";
+import SocialLogin from "./auth/SocialLogin";
 
 export {
   NotFound,
@@ -14,4 +15,5 @@ export {
   RegisterForm,
   showErrMsg,
   showSuccessMsg,
+  SocialLogin,
 };

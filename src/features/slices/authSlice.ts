@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  googleLogin,
   loginUser,
   logout,
   refreshToken,
@@ -34,6 +35,12 @@ const authSlice = createSlice({
     builder.addCase(refreshToken.rejected, (state, action) => {});
     builder.addCase(logout.fulfilled, (state, action) => {});
     builder.addCase(logout.rejected, (state, action) => {});
+    builder.addCase(googleLogin.fulfilled, (state, action) => {
+      state.msg = action.payload?.msg;
+      state.access_token = action.payload?.access_token;
+      state.user = action.payload?.user;
+    });
+    builder.addCase(googleLogin.rejected, (state, action) => {});
   },
 });
 

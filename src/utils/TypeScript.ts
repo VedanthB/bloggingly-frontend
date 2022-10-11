@@ -28,3 +28,9 @@ export interface IUser extends IUserLogin {
   updatedAt: string;
   _id: string;
 }
+
+export interface IGoogleResponse {
+  clientId: string;
+  credential: string;
+  select_by: string;
+}
