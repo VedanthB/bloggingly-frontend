@@ -62,12 +62,14 @@ const NavLinkDropdown = () => {
           </li>
         </ul>
         <div className="py-1">
-          <li
-            onClick={() => dispatch(logout())}
-            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-          >
-            Sign out
-          </li>
+          <ul>
+            <li
+              onClick={() => dispatch(logout())}
+              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              Sign out
+            </li>
+          </ul>
         </div>
       </div>
     </div>
