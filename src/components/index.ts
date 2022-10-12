@@ -7,6 +7,7 @@ import RegisterForm from "./auth/RegisterForm";
 import UserBlogs from "./profile/UserBlogs";
 import UserProfile from "./profile/UserProfile";
 import CurrentUserProfile from "./profile/CurrentUserProfile";
+import SocialLogin from "./auth/SocialLogin";
 
 export {
   NotFound,
@@ -20,4 +21,5 @@ export {
   UserBlogs,
   UserProfile,
   CurrentUserProfile,
+  SocialLogin,
 };

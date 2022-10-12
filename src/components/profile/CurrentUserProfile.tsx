@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import Modal from "../global/Modal";
+import EditProfileForm from "./EditProfileForm";
 
 const CurrentUserProfile = () => {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -39,7 +40,9 @@ const CurrentUserProfile = () => {
       <Modal
         isModalOpen={isEditProfileModalOpen}
         setIsModalOpen={setIsEditProfileModalOpen}
-      ></Modal>
+      >
+        <EditProfileForm />
+      </Modal>
     </>
   );
 };

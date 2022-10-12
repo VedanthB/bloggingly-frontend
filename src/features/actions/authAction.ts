@@ -97,3 +97,24 @@ export const logout = createAsyncThunk(
     }
   }
 );
+
+export const googleLogin = createAsyncThunk(
+  "auth/googleLogin",
+  async (id_token: string, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      const res = await postAPI("google_login", { id_token });
+
+      thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
+
+      localStorage.setItem("loggedIn", "bloggingly");
+
+      return res.data as IAuth;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
