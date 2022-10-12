@@ -53,7 +53,10 @@ const NavLinkDropdown = () => {
         </div>
         <ul className="py-1 text-sm text-gray-700 ">
           <li>
-            <Link to="profile" className="block py-2 px-4 hover:bg-gray-100">
+            <Link
+              to={`/profile/${user?._id}`}
+              className="block py-2 px-4 hover:bg-gray-100"
+            >
               Profile
             </Link>
           </li>
