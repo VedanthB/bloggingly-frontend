@@ -34,3 +34,7 @@ export interface IGoogleResponse {
   credential: string;
   select_by: string;
 }
+
+export interface IUserProfile extends IUserRegister {
+  avatar: string | File;
+}

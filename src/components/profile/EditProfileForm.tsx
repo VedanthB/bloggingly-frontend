@@ -1,19 +1,41 @@
 import React, { useState } from "react";
-import { InputChange } from "../../utils/TypeScript";
+import { useAppSelector } from "../../app/hooks";
+import { InputChange, IUserProfile } from "../../utils/TypeScript";
 
 const EditProfileForm = () => {
-  const initialState = { name: "", email: "", password: "", cf_password: "" };
+  const initialState = {
+    name: "",
+    email: "",
+    password: "",
+    cf_password: "",
+    avatar: "",
+  };
 
-  const [userDetails, setUserDetails] = useState(initialState);
+  const {
+    auth: { user },
+  } = useAppSelector((state) => state);
+
+  const [userDetails, setUserDetails] = useState<IUserProfile>(initialState);
 
   const { email, password, name, cf_password } = userDetails;
 
   const [showPassword, setShowPassword] = useState(false);
+
   const [showCfPassword, setShowCfPassword] = useState(false);
 
   const handleChangeInput = (e: InputChange) => {
     const { value, name } = e.target;
     setUserDetails({ ...userDetails, [name]: value });
+  };
+
+  const handleChangeFile = (e: InputChange) => {
+    const target = e.target as HTMLInputElement;
+    const files = target.files;
+
+    if (files) {
+      const file = files[0];
+      setUserDetails({ ...userDetails, avatar: file });
+    }
   };
 
   return (
@@ -42,8 +64,9 @@ const EditProfileForm = () => {
         <h3 className="mb-4 text-xl font-medium text-gray-900 ">
           Update Details
         </h3>
+
         <form className="space-y-6" action="#">
-          <div className="mb-6">
+          <div className="mb-6 mt-20">
             <label
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               htmlFor="file_input"
@@ -71,7 +94,7 @@ const EditProfileForm = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Your Name"
               required
-              value={name}
+              value={user?.name}
               onChange={handleChangeInput}
             />
           </div>
