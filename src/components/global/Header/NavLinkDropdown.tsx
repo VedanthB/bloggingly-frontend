@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { logout } from "../../../features";
+import { useOnClickOutside } from "../../../hooks";
 
 const NavLinkDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -11,6 +12,20 @@ const NavLinkDropdown = () => {
   } = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
+
+  const navLinkDropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleOutsideClicks = (event: MouseEvent) => {
+    if (
+      isDropdownOpen &&
+      navLinkDropdownRef.current &&
+      !navLinkDropdownRef.current.contains(event.target as any)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useOnClickOutside(navLinkDropdownRef, handleOutsideClicks);
 
   return (
     <div>
@@ -40,8 +55,8 @@ const NavLinkDropdown = () => {
         </svg>
       </button>
 
-      {/* // <!-- Dropdown menu --> */}
       <div
+        ref={navLinkDropdownRef}
         id="dropdownAvatarName"
         className={` ${
           isDropdownOpen ? "block" : "hidden"
@@ -56,6 +71,7 @@ const NavLinkDropdown = () => {
             <Link
               to={`/profile/${user?._id}`}
               className="block py-2 px-4 hover:bg-gray-100"
+              onClick={() => setIsDropdownOpen(false)}
             >
               Profile
             </Link>
@@ -64,7 +80,10 @@ const NavLinkDropdown = () => {
         <div className="py-1">
           <ul>
             <li
-              onClick={() => dispatch(logout())}
+              onClick={() => {
+                dispatch(logout());
+                setIsDropdownOpen(false);
+              }}
               className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
             >
               Sign out
