@@ -13,6 +13,7 @@ import {
 } from "./slices/alertSlice";
 
 import { updateUser } from "./actions/profileAction";
+import { setAuth } from "./slices/authSlice";
 
 export {
   loginUser,
@@ -24,4 +25,5 @@ export {
   refreshToken,
   logout,
   updateUser,
+  setAuth,
 };
