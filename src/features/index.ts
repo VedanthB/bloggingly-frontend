@@ -12,6 +12,8 @@ import {
   closeToast,
 } from "./slices/alertSlice";
 
+import { updateUser } from "./actions/profileAction";
+
 export {
   loginUser,
   setAlertLoading,
@@ -21,4 +23,5 @@ export {
   registerUser,
   refreshToken,
   logout,
+  updateUser,
 };
