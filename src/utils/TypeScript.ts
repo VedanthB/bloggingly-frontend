@@ -36,5 +36,5 @@ export interface IGoogleResponse {
 }
 
 export interface IUserProfile extends IUserRegister {
-  avatar: string | File;
+  avatar?: File;
 }
