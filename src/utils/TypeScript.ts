@@ -38,3 +38,10 @@ export interface IGoogleResponse {
 export interface IUserProfile extends IUserRegister {
   avatar?: File;
 }
+
+export interface ICategory {
+  _id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
