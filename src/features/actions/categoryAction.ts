@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAPI, postAPI } from "../../utils/FetchData";
-import { ICategory } from "../../utils/TypeScript";
+import { deleteAPI, getAPI, patchAPI, postAPI } from "../../utils/FetchData";
+
 import {
   setAlertError,
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
-
-export interface ICreateCategory {
-  name: string;
-  access_token: string;
-}
+import {
+  ICreateCategory,
+  IDeleteCategory,
+  IUpdateCategory,
+} from "../types/categoryTypes";
 
 export const createCategory = createAsyncThunk(
   "category/createCategory",
@@ -42,6 +42,44 @@ export const getCategories = createAsyncThunk(
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
       return res.data.categories;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const updateCategory = createAsyncThunk(
+  "category/updateCategory",
+  async ({ data, access_token }: IUpdateCategory, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      await patchAPI(`category/${data._id}`, { name: data.name }, access_token);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return data;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  "category/deleteCategory",
+  async ({ id, access_token }: IDeleteCategory, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      await deleteAPI(`category/${id}`, access_token);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return id;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

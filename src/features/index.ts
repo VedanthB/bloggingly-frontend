@@ -1,4 +1,9 @@
-import { createCategory, getCategories } from "./actions/categoryAction";
+import {
+  createCategory,
+  getCategories,
+  updateCategory,
+  deleteCategory,
+} from "./actions/categoryAction";
 
 import {
   loginUser,
@@ -31,5 +36,7 @@ export {
   setAuth,
   resetPassword,
   createCategory,
+  updateCategory,
+  deleteCategory,
   getCategories,
 };

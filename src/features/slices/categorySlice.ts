@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createCategory, getCategories } from "./../actions/categoryAction";
-import { ICategory } from "./../../utils/TypeScript";
+import {
+  createCategory,
+  deleteCategory,
+  getCategories,
+  updateCategory,
+} from "./../actions/categoryAction";
 
-interface ICategoryState {
-  categories?: ICategory[];
-}
+import { ICategoryState } from "../types/categoryTypes";
 
 const initialState: ICategoryState = {
   categories: [],
@@ -20,10 +22,21 @@ const categorySlice = createSlice({
     });
     builder.addCase(createCategory.rejected, (state, action) => {});
     builder.addCase(getCategories.fulfilled, (state, { payload }) => {
-      console.log(payload);
       state.categories = payload;
     });
     builder.addCase(getCategories.rejected, (state, action) => {});
+    builder.addCase(updateCategory.fulfilled, (state, { payload }) => {
+      state.categories = state?.categories?.map((item) =>
+        item._id === payload?._id ? { ...item, name: payload?.name } : item
+      );
+    });
+    builder.addCase(updateCategory.rejected, (state, action) => {});
+    builder.addCase(deleteCategory.fulfilled, (state, { payload }) => {
+      state.categories = state?.categories?.filter(
+        (item) => item._id !== payload
+      );
+    });
+    builder.addCase(deleteCategory.rejected, (state, action) => {});
   },
 });
 

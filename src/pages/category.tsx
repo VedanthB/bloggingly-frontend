@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { NotFound } from "../components";
-import { createCategory } from "../features";
+import { createCategory, deleteCategory, updateCategory } from "../features";
 import { FiEdit2 } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineCloseCircle } from "react-icons/ai";
 
-import { FormSubmit } from "../utils/TypeScript";
+import { FormSubmit, ICategory } from "../utils/TypeScript";
 
 const Category = () => {
   const [name, setName] = useState("");
+
+  const [edit, setEdit] = useState<ICategory | null>(null);
 
   const { auth, category } = useAppSelector((state) => state);
 
@@ -22,9 +24,23 @@ const Category = () => {
     e.preventDefault();
     if (!auth.access_token || !name) return;
 
-    dispatch(createCategory({ name, access_token: auth?.access_token }));
+    if (edit) {
+      if (edit.name === name) return;
 
+      const data = { ...edit, name };
+
+      dispatch(updateCategory({ data, access_token: auth?.access_token }));
+    } else {
+      dispatch(createCategory({ name, access_token: auth?.access_token }));
+    }
     setName("");
+    setEdit(null);
+  };
+
+  const handleDelete = (id: string) => {
+    if (!auth.access_token) return;
+
+    dispatch(deleteCategory({ id, access_token: auth?.access_token }));
   };
 
   return (
@@ -34,6 +50,16 @@ const Category = () => {
           className="flex items-center gap-6 border border-gray-200 p-6 rounded bg-white"
           onSubmit={handleSubmit}
         >
+          {edit && (
+            <AiOutlineCloseCircle
+              onClick={() => {
+                setEdit(null);
+                setName("");
+              }}
+              className="w-10 h-10 cursor-pointer text-red-500"
+            />
+          )}
+
           <div className="relative z-0 mb-2 w-full group ">
             <input
               type="text"
@@ -56,7 +82,7 @@ const Category = () => {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 "
           >
-            Create
+            {edit ? "Update" : "Create"}
           </button>
         </form>
 
@@ -69,8 +95,17 @@ const Category = () => {
               <p className="uppercase">{category.name}</p>
 
               <div className="flex items-center gap-4">
-                <FiEdit2 className="cursor-pointer" />
-                <AiOutlineDelete className="cursor-pointer" />
+                <FiEdit2
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setEdit(category);
+                    setName(category.name);
+                  }}
+                />
+                <AiOutlineDelete
+                  onClick={() => handleDelete(category._id)}
+                  className="cursor-pointer"
+                />
               </div>
             </div>
           ))}
