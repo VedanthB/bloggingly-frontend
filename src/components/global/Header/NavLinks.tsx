@@ -36,6 +36,21 @@ const NavLinks = () => {
         </NavLink>
       </li>
 
+      {auth.user?.role === "admin" && (
+        <li>
+          <NavLink
+            to="/category"
+            className={({ isActive }) =>
+              isActive
+                ? "block py-2 pr-4 pl-3  text-blue-700 rounded bg-transparent"
+                : "block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 "
+            }
+          >
+            Category
+          </NavLink>
+        </li>
+      )}
+
       <li>{auth?.user && <NavLinkDropdown />}</li>
     </ul>
   );
