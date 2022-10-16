@@ -1,13 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { patchAPI } from "../../utils/FetchData";
 import { checkImage, imageUpload } from "../../utils/ImageUpload";
+import { checkPassword } from "../../utils/ValidRegister";
 import {
   setAlertError,
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
 import { setAuth } from "../slices/authSlice";
-import { IUpdateUserInfo } from "../types/profileTypes";
+import { IResetPassword, IUpdateUserInfo } from "../types/profileTypes";
 
 export const updateUser = createAsyncThunk(
   "profile/updateUser",
@@ -47,6 +48,33 @@ export const updateUser = createAsyncThunk(
       );
 
       thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "profile/resetPassword",
+  async ({ password, cf_password, access_token }: IResetPassword, thunkApi) => {
+    const msg = checkPassword(password, cf_password);
+
+    if (msg) return thunkApi.dispatch(setAlertError({ error: msg }));
+
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      if (access_token) {
+        const res = await patchAPI(
+          "reset_password",
+          { password },
+          access_token
+        );
+
+        thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
+      }
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

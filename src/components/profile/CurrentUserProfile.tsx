@@ -1,11 +1,12 @@
 import React, { SyntheticEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateUser } from "../../features";
+import { resetPassword, updateUser } from "../../features";
 import { InputChange, IUserProfile } from "../../utils/TypeScript";
-import Modal from "../global/Modal";
 
 const CurrentUserProfile = () => {
   const { auth } = useAppSelector((state) => state);
+
+  const { access_token } = auth;
 
   const initialState: IUserProfile = {
     name: "",
@@ -38,17 +39,14 @@ const CurrentUserProfile = () => {
       const file = files[0];
       setUserDetails({ ...userDetails, avatar: file });
     }
-
-    console.log(avatar);
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
-    console.log(avatar);
-
-    console.log("i 1234");
     e.preventDefault();
-    console.log("i");
     if (avatar || name) dispatch(updateUser({ avatar, name, auth }));
+
+    if (password.length > 0 && auth.access_token)
+      dispatch(resetPassword({ password, cf_password, access_token }));
   };
 
   return (
@@ -78,10 +76,10 @@ const CurrentUserProfile = () => {
               {auth?.user?.name}
             </h5>
             <span className="text-sm text-center text-gray-500 ">
-              Visual Designer
+              {auth?.user?.email}
             </span>
 
-            <div className="space-y-4 px-6">
+            <div className="space-y-4 px-6 mt-6">
               <div className="mb-6">
                 <label
                   htmlFor="name"
@@ -101,72 +99,64 @@ const CurrentUserProfile = () => {
                 />
               </div>
 
-              <div className="mb-6">
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Your email
-                </label>
-                <input
-                  name="email"
-                  type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="name@bloggingly.com"
-                  required
-                  value={auth?.user?.email}
-                  onChange={handleChangeInput}
-                />
-              </div>
+              {auth?.user?.type === "register" && (
+                <>
+                  <div className="mb-6">
+                    {auth?.user?.type !== "register" && (
+                      <div className="text-red-500 text-xs text-center mb-4">
+                        * Google Login does not support change password *
+                      </div>
+                    )}
+                    <label
+                      htmlFor="password"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Your password
+                    </label>
+                    <input
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                      onChange={handleChangeInput}
+                      disabled={auth?.user?.type !== "register"}
+                    />
 
-              <div className="mb-6">
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Your password
-                </label>
-                <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  required
-                  onChange={handleChangeInput}
-                />
+                    <small
+                      className="relative float-right bottom-8 right-2 cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </small>
+                  </div>
 
-                <small
-                  className="relative float-right bottom-8 right-2 cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Hide" : "Show"}
-                </small>
-              </div>
+                  <div className="mb-6">
+                    <label
+                      htmlFor="cf_password"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Confirm Password
+                    </label>
+                    <input
+                      name="cf_password"
+                      type={showCfPassword ? "text" : "password"}
+                      id="cf_password"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                      disabled={auth?.user?.type !== "register"}
+                      onChange={handleChangeInput}
+                    />
 
-              <div className="mb-6">
-                <label
-                  htmlFor="cf_password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  name="cf_password"
-                  type={showCfPassword ? "text" : "password"}
-                  id="cf_password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  required
-                  onChange={handleChangeInput}
-                />
-
-                <small
-                  className="relative float-right bottom-8 right-2 cursor-pointer"
-                  onClick={() => setShowCfPassword(!showCfPassword)}
-                >
-                  {showCfPassword ? "Hide" : "Show"}
-                </small>
-              </div>
+                    <small
+                      className="relative float-right bottom-8 right-2 cursor-pointer"
+                      onClick={() => setShowCfPassword(!showCfPassword)}
+                    >
+                      {showCfPassword ? "Hide" : "Show"}
+                    </small>
+                  </div>
+                </>
+              )}
 
               <button
                 onClick={(e) => handleSubmit(e)}
