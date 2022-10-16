@@ -10,7 +10,7 @@ export const store = configureStore({
     auth: authReducer,
     alert: alertReducer,
     profile: profileReducer,
-    categories: categoryReducer,
+    category: categoryReducer,
   },
 });
 

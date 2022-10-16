@@ -1,3 +1,5 @@
+import { createCategory, getCategories } from "./actions/categoryAction";
+
 import {
   loginUser,
   registerUser,
@@ -28,4 +30,6 @@ export {
   updateUser,
   setAuth,
   resetPassword,
+  createCategory,
+  getCategories,
 };

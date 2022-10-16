@@ -22,7 +22,7 @@ export const createCategory = createAsyncThunk(
 
       thunkApi.dispatch(setAlertSuccess({ success: "New Category Created" }));
 
-      return res.data.categories;
+      return res.data.newCategory;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
@@ -33,7 +33,7 @@ export const createCategory = createAsyncThunk(
 
 export const getCategories = createAsyncThunk(
   "category/getCategories",
-  async ({}, thunkApi) => {
+  async (x: undefined, thunkApi) => {
     try {
       thunkApi.dispatch(setAlertLoading({ loading: true }));
 

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { NotFound } from "../components";
-import { createCategory } from "../features/actions/categoryAction";
+import { createCategory } from "../features";
+import { FiEdit2 } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+
 import { FormSubmit } from "../utils/TypeScript";
 
 const Category = () => {
   const [name, setName] = useState("");
 
-  const { auth, categories } = useAppSelector((state) => state);
+  const { auth, category } = useAppSelector((state) => state);
+
+  const { categories } = category;
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +36,7 @@ const Category = () => {
         >
           <div className="relative z-0 mb-2 w-full group ">
             <input
-              type="email"
+              type="text"
               name="name"
               id="category_name"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -55,7 +60,21 @@ const Category = () => {
           </button>
         </form>
 
-        <div className=""></div>
+        <div className="flex flex-col gap-4 max-h-96 overflow-scroll  mt-6 rounded">
+          {categories?.map((category) => (
+            <div
+              className="flex w-full justify-between p-4 items-center rounded border bg-white border-gray-200 "
+              key={category._id}
+            >
+              <p className="uppercase">{category.name}</p>
+
+              <div className="flex items-center gap-4">
+                <FiEdit2 className="cursor-pointer" />
+                <AiOutlineDelete className="cursor-pointer" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
