@@ -12,7 +12,7 @@ import {
   closeToast,
 } from "./slices/alertSlice";
 
-import { updateUser } from "./actions/profileAction";
+import { updateUser, resetPassword } from "./actions/profileAction";
 import { setAuth } from "./slices/authSlice";
 
 export {
@@ -26,4 +26,5 @@ export {
   logout,
   updateUser,
   setAuth,
+  resetPassword,
 };

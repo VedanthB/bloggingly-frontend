@@ -1,11 +1,12 @@
 import React, { SyntheticEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateUser } from "../../features";
+import { resetPassword, updateUser } from "../../features";
 import { InputChange, IUserProfile } from "../../utils/TypeScript";
-import Modal from "../global/Modal";
 
 const CurrentUserProfile = () => {
   const { auth } = useAppSelector((state) => state);
+
+  const { access_token } = auth;
 
   const initialState: IUserProfile = {
     name: "",
@@ -43,9 +44,10 @@ const CurrentUserProfile = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (avatar || name) dispatch(updateUser({ avatar, name, auth }));
-  };
 
-  console.log(auth?.user?.type);
+    if (password.length > 0 && auth.access_token)
+      dispatch(resetPassword({ password, cf_password, access_token }));
+  };
 
   return (
     <>

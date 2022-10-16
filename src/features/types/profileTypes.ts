@@ -5,3 +5,9 @@ export interface IUpdateUserInfo {
   name: string;
   auth: IAuth;
 }
+
+export interface IResetPassword {
+  password: string;
+  cf_password: string;
+  access_token?: string | null;
+}
