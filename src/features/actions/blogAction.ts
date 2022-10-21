@@ -6,7 +6,7 @@ import {
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
-import { ICreateBlog } from "../types/blogTypes";
+import { IBlogs, ICreateBlog } from "../types/blogTypes";
 
 export const createBlog = createAsyncThunk(
   "blog/createBlog",
@@ -48,7 +48,7 @@ export const getBlogs = createAsyncThunk(
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
-      return res.data;
+      return res.data as IBlogs[];
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
