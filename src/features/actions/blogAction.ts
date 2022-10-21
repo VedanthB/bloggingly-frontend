@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { postAPI } from "../../utils/FetchData";
+import { getAPI, postAPI } from "../../utils/FetchData";
 import { imageUpload } from "../../utils/ImageUpload";
 import {
   setAlertError,
@@ -30,6 +30,25 @@ export const createBlog = createAsyncThunk(
       console.log(res);
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const getBlogs = createAsyncThunk(
+  "blog/getBlogs",
+  async (x: undefined, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      const res = await getAPI("home/blogs");
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return res.data;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

@@ -3,12 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import { useAppDispatch } from "./app/hooks";
 import { Alert, Footer, Header } from "./components";
 import { PageRender } from "./customRouter";
-import { getCategories, refreshToken } from "./features";
+import { getBlogs, getCategories, refreshToken } from "./features";
 
 const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(getBlogs());
+
     const isLoggedIn = localStorage.getItem("loggedIn");
     dispatch(refreshToken(isLoggedIn));
 

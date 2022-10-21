@@ -23,7 +23,7 @@ import { updateUser, resetPassword } from "./actions/profileAction";
 
 import { setAuth } from "./slices/authSlice";
 
-import { createBlog } from "./actions/blogAction";
+import { createBlog, getBlogs } from "./actions/blogAction";
 
 export {
   loginUser,
@@ -42,4 +42,5 @@ export {
   deleteCategory,
   getCategories,
   createBlog,
+  getBlogs,
 };

@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBlog } from "../actions/blogAction";
+import { createBlog, getBlogs } from "../actions/blogAction";
+import { IBlogs } from "../types/blogTypes";
 
-const initialState = {} as unknown;
+const initialState: IBlogs[] = [];
 
 const blogSlice = createSlice({
   name: "blog",
@@ -10,6 +11,10 @@ const blogSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(createBlog.fulfilled, (state, action) => {});
     builder.addCase(createBlog.rejected, (state, action) => {});
+    builder.addCase(getBlogs.fulfilled, (state, action) => {
+      state = action.payload;
+    });
+    builder.addCase(getBlogs.rejected, (state, action) => {});
   },
 });
 
