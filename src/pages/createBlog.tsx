@@ -10,6 +10,7 @@ import {
 import { setAlertError } from "../features";
 
 import { IBlog } from "../utils/TypeScript";
+import { validCreateBlog } from "../utils/ValidRegister";
 
 const CreateBlog = () => {
   const initState = {
@@ -48,11 +49,11 @@ const CreateBlog = () => {
   const handleSubmit = async () => {
     if (!auth.access_token) return;
 
-    // const check = validCreateBlog({ ...blog, content: text });
+    const check = validCreateBlog({ ...blog, content: text });
 
-    // if (check.errLength !== 0) {
-    //   return dispatch(setAlertError({ error: check.errMsg }));
-    // }
+    if (check.errLength !== 0) {
+      return dispatch(setAlertError({ error: check.errMsg }));
+    }
 
     let newData = { ...blog, content: body };
 
