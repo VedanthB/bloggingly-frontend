@@ -12,7 +12,7 @@ export const store = configureStore({
     alert: alertReducer,
     profile: profileReducer,
     category: categoryReducer,
-    blogs: blogReducer,
+    blogsState: blogReducer,
   },
 });
 
