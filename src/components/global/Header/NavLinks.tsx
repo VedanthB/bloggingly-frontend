@@ -13,7 +13,7 @@ const NavLinks = () => {
     <ul className="flex p-2 items-center rounded-lg border-gray-100 space-x-8 mt-0 text-sm font-medium border-0 bg-white">
       <li>
         <NavLink
-          to={auth.access_token ? "home" : "login"}
+          to={auth.access_token ? "/" : "login"}
           className={({ isActive }) =>
             isActive
               ? "block py-2 pr-4 pl-3  text-blue-700 rounded bg-transparent"
