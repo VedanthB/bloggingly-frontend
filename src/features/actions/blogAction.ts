@@ -6,7 +6,7 @@ import {
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
-import { IBlogs, ICreateBlog } from "../types/blogTypes";
+import { IBlogs, IBlogsCategory, ICreateBlog } from "../types/blogTypes";
 
 export const createBlog = createAsyncThunk(
   "blog/createBlog",
@@ -49,6 +49,25 @@ export const getBlogs = createAsyncThunk(
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
       return res.data as IBlogs[];
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const getBlogsByCategoryId = createAsyncThunk(
+  "blog/getBlogsByCategoryId",
+  async (id: string, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      const res = await getAPI(`blogs/${id}`);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return { ...res.data, id } as IBlogsCategory[];
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
