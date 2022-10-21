@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBlog, getBlogs } from "../actions/blogAction";
-import { IBlogs } from "../types/blogTypes";
+import {
+  createBlog,
+  getBlogs,
+  getBlogsByCategoryId,
+} from "../actions/blogAction";
+import { IBlogs, IBlogsCategory } from "../types/blogTypes";
 
 const initialState = {
   blogs: [] as IBlogs[],
+  blogsByCategory: [] as IBlogsCategory[],
 };
 
 const blogSlice = createSlice({
@@ -17,6 +22,10 @@ const blogSlice = createSlice({
       state.blogs = action.payload as IBlogs[];
     });
     builder.addCase(getBlogs.rejected, (state, action) => {});
+    builder.addCase(getBlogsByCategoryId.fulfilled, (state, action) => {
+      state.blogsByCategory.push(action.payload as IBlogsCategory);
+    });
+    builder.addCase(getBlogsByCategoryId.rejected, (state, action) => {});
   },
 });
 
