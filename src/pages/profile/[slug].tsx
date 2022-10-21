@@ -11,7 +11,11 @@ const Profile = () => {
     <div className="w-full max-w-5xl m-auto min-h-[100vh]">
       <div className="w-full flex flex-wrap my-4">
         <div className="md:w-[40%] md:mt-10 w-full mb-4">
-          {auth.user?._id === slug ? <CurrentUserProfile /> : <UserProfile />}
+          {auth.user?._id === slug ? (
+            <CurrentUserProfile />
+          ) : (
+            <UserProfile id={slug as string} />
+          )}
         </div>
 
         <div className="md:w-[60%] w-full">

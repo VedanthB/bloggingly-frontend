@@ -19,7 +19,7 @@ import {
   closeToast,
 } from "./slices/alertSlice";
 
-import { updateUser, resetPassword } from "./actions/profileAction";
+import { updateUser, resetPassword, getUser } from "./actions/profileAction";
 
 import { setAuth } from "./slices/authSlice";
 
@@ -48,4 +48,5 @@ export {
   createBlog,
   getBlogs,
   getBlogsByCategoryId,
+  getUser,
 };
