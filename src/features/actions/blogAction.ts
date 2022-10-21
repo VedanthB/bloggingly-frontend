@@ -9,8 +9,10 @@ import {
 import {
   IBlogs,
   IBlogsCategory,
+  IBlogsUser,
   ICreateBlog,
   IGetBlogsByCategoryParams,
+  IGetBlogsByUserIdParams,
 } from "../types/blogTypes";
 
 export const createBlog = createAsyncThunk(
@@ -72,11 +74,34 @@ export const getBlogsByCategoryId = createAsyncThunk(
 
       let value = search ? search : `?page=${1}`;
 
-      const res = await getAPI(`blogs/${id}${value}&limit=${limit}`);
+      const res = await getAPI(`blogs/category/${id}${value}&limit=${limit}`);
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
       return { ...res.data, id, search } as IBlogsCategory;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const getBlogsByUserId = createAsyncThunk(
+  "blog/getBlogsByUserId",
+  async ({ id, search }: IGetBlogsByUserIdParams, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      let limit = 3;
+
+      let value = search ? search : `?page=${1}`;
+
+      const res = await getAPI(`blogs/user/${id}${value}&limit=${limit}`);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return { ...res.data, id, search } as IBlogsUser;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

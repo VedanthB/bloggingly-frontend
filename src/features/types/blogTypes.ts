@@ -23,3 +23,15 @@ export interface IGetBlogsByCategoryParams {
   id: string;
   search: string;
 }
+
+export interface IGetBlogsByUserIdParams {
+  id: string;
+  search: string;
+}
+
+export interface IBlogsUser {
+  id: string;
+  blogs: IBlog[];
+  total: number;
+  search: string;
+}
