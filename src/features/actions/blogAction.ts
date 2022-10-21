@@ -67,7 +67,7 @@ export const getBlogsByCategoryId = createAsyncThunk(
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
-      return { ...res.data, id } as IBlogsCategory[];
+      return { ...res.data, id } as IBlogsCategory;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

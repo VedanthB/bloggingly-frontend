@@ -23,7 +23,7 @@ const blogSlice = createSlice({
     });
     builder.addCase(getBlogs.rejected, (state, action) => {});
     builder.addCase(getBlogsByCategoryId.fulfilled, (state, action) => {
-      state.blogsByCategory = action.payload as IBlogsCategory[];
+      state.blogsByCategory.push(action.payload as IBlogsCategory);
     });
     builder.addCase(getBlogsByCategoryId.rejected, (state, action) => {});
   },
