@@ -30,6 +30,8 @@ import {
   getBlogsByUserId,
 } from "./actions/blogAction";
 
+import { createComment } from "./actions/commentsAction";
+
 export {
   loginUser,
   setAlertLoading,
@@ -51,4 +53,5 @@ export {
   getBlogsByCategoryId,
   getUser,
   getBlogsByUserId,
+  createComment,
 };

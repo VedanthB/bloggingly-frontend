@@ -5,6 +5,7 @@ import alertReducer from "../features/slices/alertSlice";
 import profileReducer from "../features/slices/profileSlice";
 import categoryReducer from "../features/slices/categorySlice";
 import blogReducer from "../features/slices/blogSlice";
+import commentsReducer from "../features/slices/commentsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     profile: profileReducer,
     category: categoryReducer,
     blogsState: blogReducer,
+    comments: commentsReducer,
   },
 });
 

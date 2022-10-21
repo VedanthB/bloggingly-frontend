@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { createComment } from "../../features";
 import { IBlog, IComment, IUser } from "../../utils/TypeScript";
 import Comments from "../comments";
 import CommentInput from "../comments/CommentInput";
@@ -10,7 +11,7 @@ interface IProps {
 }
 
 const DisplayBlog: React.FC<IProps> = ({ blog }) => {
-  const { auth } = useAppSelector((state) => state);
+  const { auth, comments } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   const [showComments, setShowComments] = useState<IComment[]>([]);
@@ -27,7 +28,14 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     };
 
     setShowComments([data, ...showComments]);
+
+    dispatch(createComment({ data: data, token: auth.access_token }));
   };
+
+  useEffect(() => {
+    if (comments?.data.length === 0) return;
+    setShowComments(comments?.data);
+  }, [comments.data]);
 
   return (
     <div className="w-full h-full mt-10 p-10 rounded bg-white">

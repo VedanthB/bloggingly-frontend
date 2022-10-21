@@ -9,7 +9,13 @@ interface IProps {
 
 const Comments: React.FC<IProps> = ({ comment }) => {
   return (
-    <div className="my-3 d-flex">
+    <div
+      className="my-4 flex"
+      style={{
+        opacity: comment._id ? 1 : 0.5,
+        pointerEvents: comment._id ? "initial" : "none",
+      }}
+    >
       <CommentAvatar user={comment.user} />
 
       <CommentList comment={comment} />

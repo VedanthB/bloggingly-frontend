@@ -8,11 +8,11 @@ interface IProps {
 
 const CommentAvatar: React.FC<IProps> = ({ user }) => {
   return (
-    <div className="avatar_comment">
-      <img src={user.avatar} alt="avatar" />
+    <div className="flex flex-col items-center justify-center">
+      <img className="w-10 h-10 rounded-full" src={user.avatar} alt="avatar" />
 
-      <small className="d-block text-break">
-        <Link to={`/profile/${user._id}`}>{user.name}</Link>
+      <small className="block text-gray-500 mt-4">
+        <Link to={`/profile/${user._id}`}>@{user.name}</Link>
       </small>
     </div>
   );
