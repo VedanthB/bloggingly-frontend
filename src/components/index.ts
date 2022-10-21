@@ -14,6 +14,7 @@ import Quill from "./editor/ReactQuill";
 import Tabs from "./tabs/Tabs";
 import PreviewBlog from "./previewBlog/PreviewBlog";
 import CardVertical from "./cards/CardVertical";
+import Pagination from "./global/Pagination/Pagination";
 
 export {
   NotFound,
@@ -33,5 +34,6 @@ export {
   Quill,
   Tabs,
   PreviewBlog,
+  Pagination,
   CardVertical,
 };

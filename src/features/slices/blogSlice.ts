@@ -23,7 +23,15 @@ const blogSlice = createSlice({
     });
     builder.addCase(getBlogs.rejected, (state, action) => {});
     builder.addCase(getBlogsByCategoryId.fulfilled, (state, action) => {
-      state.blogsByCategory.push(action.payload as IBlogsCategory);
+      if (
+        state.blogsByCategory.every((item) => item.id !== action?.payload?.id)
+      ) {
+        state.blogsByCategory.push(action.payload as IBlogsCategory);
+      } else {
+        state.blogsByCategory = state.blogsByCategory.map((blog) =>
+          blog.id === action?.payload?.id ? action.payload : blog
+        );
+      }
     });
     builder.addCase(getBlogsByCategoryId.rejected, (state, action) => {});
   },
