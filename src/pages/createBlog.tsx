@@ -49,7 +49,7 @@ const CreateBlog = () => {
   const handleSubmit = async () => {
     if (!auth.access_token) return;
 
-    const check = validCreateBlog({ ...blog, content: text });
+    const check = validCreateBlog({ ...blog, content: body });
 
     if (check.errLength !== 0) {
       return dispatch(setAlertError({ error: check.errMsg }));
@@ -62,12 +62,14 @@ const CreateBlog = () => {
 
   if (!auth.access_token) return <NotFound />;
 
+  console.log(body);
+
   return (
     <div className="my-4 min-h-[100vh]">
       <div className="w-full max-w-5xl m-auto">
         <Tabs tab={tab} setTab={setTab} />
 
-        <div className="w-full h-full mt-10 p-4 rounded bg-white">
+        <div className="w-full h-full mt-10 p-10 rounded bg-white">
           {tab === "Edit" ? (
             <>
               <CreateBlogForm blog={blog} setBlog={setBlog} />

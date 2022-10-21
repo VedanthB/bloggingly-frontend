@@ -13,6 +13,6 @@ const blogSlice = createSlice({
   },
 });
 
-const { reducer, actions } = blogSlice;
+const { reducer } = blogSlice;
 
 export default reducer;

@@ -10,10 +10,10 @@ interface IProps {
 
 const PreviewBlog: React.FC<IProps> = ({ ref, body, blog }) => {
   return (
-    <div className="">
+    <div className="p-10">
       <div className="w-full mb-10">
         <h2 className="text-5xl text-gray-800 font-semibold mb-8">
-          {blog.title}
+          {blog.title ? blog.title : "Please enter your title..."}
         </h2>
         <div className="w-full text-right text-gray-500">
           {new Date(blog.createdAt).toLocaleString()}
@@ -33,7 +33,8 @@ const PreviewBlog: React.FC<IProps> = ({ ref, body, blog }) => {
       <div
         ref={ref}
         dangerouslySetInnerHTML={{
-          __html: body,
+          __html:
+            body.length > 0 ? body : "Start typing to see your content....",
         }}
       />
     </div>

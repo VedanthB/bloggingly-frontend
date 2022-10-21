@@ -25,9 +25,10 @@ export const createBlog = createAsyncThunk(
 
       const newBlog = { ...blog, thumbnail: url };
 
-      //   const res = await postAPI("login", userLogin);
+      const res = await postAPI("blog", newBlog, token);
 
-      //   thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
+      console.log(res);
+
       thunkApi.dispatch(setAlertLoading({ loading: false }));
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
