@@ -9,7 +9,7 @@ const CurrentUserProfile = () => {
   const { access_token } = auth;
 
   const initialState: IUserProfile = {
-    name: "",
+    name: auth?.user?.name as string,
     email: "",
     password: "",
     cf_password: "",
@@ -73,7 +73,7 @@ const CurrentUserProfile = () => {
               </span>
             </div>
             <h5 className="mb-1 text-xl text-center  font-medium text-gray-900 ">
-              {auth?.user?.name}
+              @{userDetails.name}
             </h5>
             <span className="text-sm text-center text-gray-500 ">
               {auth?.user?.email}
@@ -94,7 +94,7 @@ const CurrentUserProfile = () => {
                   className="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="Your Name"
                   required
-                  value={auth?.user?.name}
+                  value={userDetails.name}
                   onChange={handleChangeInput}
                 />
               </div>

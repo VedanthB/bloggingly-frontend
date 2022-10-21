@@ -1,5 +1,6 @@
+import { IUser } from "./../../utils/TypeScript";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { patchAPI } from "../../utils/FetchData";
+import { getAPI, patchAPI } from "../../utils/FetchData";
 import { checkImage, imageUpload } from "../../utils/ImageUpload";
 import { checkPassword } from "../../utils/ValidRegister";
 import {
@@ -75,6 +76,25 @@ export const resetPassword = createAsyncThunk(
 
         thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
       }
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const getUser = createAsyncThunk(
+  "profile/getUser",
+  async (id: string, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      const res = await getAPI(`user/${id}`);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return res.data as IUser;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
