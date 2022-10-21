@@ -23,8 +23,6 @@ const BlogsByCategory = () => {
 
   const [total, setTotal] = useState(0);
 
-  console.log(location.search);
-
   useEffect(() => {
     const category = categories?.find((item) => item.name === slug);
 

@@ -3,12 +3,14 @@ import {
   createBlog,
   getBlogs,
   getBlogsByCategoryId,
+  getBlogsByUserId,
 } from "../actions/blogAction";
-import { IBlogs, IBlogsCategory } from "../types/blogTypes";
+import { IBlogs, IBlogsCategory, IBlogsUser } from "../types/blogTypes";
 
 const initialState = {
   blogs: [] as IBlogs[],
   blogsByCategory: [] as IBlogsCategory[],
+  userBlogs: [] as IBlogsUser[],
 };
 
 const blogSlice = createSlice({
@@ -34,6 +36,16 @@ const blogSlice = createSlice({
       }
     });
     builder.addCase(getBlogsByCategoryId.rejected, (state, action) => {});
+    builder.addCase(getBlogsByUserId.fulfilled, (state, action) => {
+      if (state.userBlogs.every((item) => item.id !== action?.payload?.id)) {
+        state.userBlogs.push(action.payload as IBlogsUser);
+      } else {
+        state.userBlogs = state.userBlogs.map((blog) =>
+          blog.id === action?.payload?.id ? action.payload : blog
+        );
+      }
+    });
+    builder.addCase(getBlogsByUserId.rejected, (state, action) => {});
   },
 });
 

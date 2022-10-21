@@ -62,8 +62,6 @@ const CreateBlog = () => {
 
   if (!auth.access_token) return <NotFound />;
 
-  console.log(body);
-
   return (
     <div className="my-4 min-h-[100vh]">
       <div className="w-full max-w-5xl m-auto">

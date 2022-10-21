@@ -27,6 +27,7 @@ import {
   createBlog,
   getBlogs,
   getBlogsByCategoryId,
+  getBlogsByUserId,
 } from "./actions/blogAction";
 
 export {
@@ -49,4 +50,5 @@ export {
   getBlogs,
   getBlogsByCategoryId,
   getUser,
+  getBlogsByUserId,
 };
