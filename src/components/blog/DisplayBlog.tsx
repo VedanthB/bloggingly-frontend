@@ -22,19 +22,19 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   let location = useLocation();
 
   const handleComment = (body: string) => {
-    if (!auth.user || !auth.access_token) return;
+    if (!auth?.user || !auth?.access_token) return;
 
     const data = {
       content: body,
-      user: auth.user,
-      blog_id: blog._id as string,
-      blog_user_id: (blog.user as IUser)._id,
+      user: auth?.user,
+      blog_id: blog?._id as string,
+      blog_user_id: (blog?.user as IUser)?._id,
       createdAt: new Date().toISOString(),
     };
 
     setShowComments([data, ...showComments]);
 
-    dispatch(createComment({ data: data, token: auth.access_token }));
+    dispatch(createComment({ data: data, token: auth?.access_token }));
   };
 
   useEffect(() => {
@@ -51,16 +51,17 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   );
 
   useEffect(() => {
-    if (!blog._id) return;
+    if (!blog?._id) return;
 
     const num: number = Number(location.search.slice(6)) || 1;
 
-    fetchComments(blog._id, num);
-  }, [blog._id, fetchComments, location.search]);
+    fetchComments(blog?._id, num);
+  }, [blog?._id, fetchComments, location.search]);
 
   const handlePagination = (num: number) => {
-    if (!blog._id) return;
-    fetchComments(blog._id, num);
+    if (!blog?._id) return;
+
+    fetchComments(blog?._id, num);
   };
 
   return (
@@ -68,13 +69,13 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
       <div className="p-10">
         <div className="w-full mb-10">
           <h2 className="text-5xl text-gray-800 font-semibold mb-8">
-            {blog.title}
+            {blog?.title}
           </h2>
 
           <div className="w-full flex justify-between items-center ">
             {typeof blog.user !== "string" && (
               <Link
-                to={`/profile/${blog.user._id}`}
+                to={`/profile/${blog?.user._id}`}
                 className="italic hover:text-blue-500"
               >
                 @{blog.user.name}
@@ -82,7 +83,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
             )}
 
             <div className="text-gray-500">
-              {new Date(blog.createdAt).toLocaleString()}
+              {new Date(blog?.createdAt).toLocaleString()}
             </div>
           </div>
         </div>
@@ -96,7 +97,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
 
         <div
           dangerouslySetInnerHTML={{
-            __html: blog.content,
+            __html: blog?.content,
           }}
         />
       </div>
@@ -111,7 +112,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
           Please{" "}
           <Link
             className=" text-blue-500 hover:underline cursor-pointer"
-            to={`/login?blog/${blog._id}`}
+            to={`/login?blog/${blog?._id}`}
           >
             login
           </Link>{" "}
@@ -125,9 +126,9 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
             <Comments key={index} comment={comment} />
           ))}
 
-      {comments.total > 1 && (
+      {comments?.total > 1 && (
         <div className="w-full flex justify-start items-center mt-10">
-          <Pagination total={comments.total} callback={handlePagination} />
+          <Pagination total={comments?.total} callback={handlePagination} />
         </div>
       )}
     </div>

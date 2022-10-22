@@ -40,6 +40,6 @@ const categorySlice = createSlice({
   },
 });
 
-const { reducer, actions } = categorySlice;
+const { reducer } = categorySlice;
 
 export default reducer;

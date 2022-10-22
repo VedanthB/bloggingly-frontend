@@ -7,13 +7,13 @@ const Alert = () => {
 
   return (
     <div>
-      {alert.loading && <Loader />}
+      {alert?.loading && <Loader />}
 
-      {alert.error && (
+      {alert?.error && (
         <Toast title="Error" body={alert.error} bgColor="bg-red-500" />
       )}
 
-      {alert.success && (
+      {alert?.success && (
         <Toast title="Success" body={alert.success} bgColor="bg-green-500" />
       )}
     </div>

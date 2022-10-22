@@ -11,14 +11,11 @@ const Active = () => {
 
   useEffect(() => {
     if (slug) {
-      console.log("i run ");
       postAPI("active", { active_token: slug })
-        .then((res) => setSuccess(res.data.msg))
-        .catch((err) => setErr(err.response.data.msg));
+        .then((res) => setSuccess(res?.data?.msg))
+        .catch((err) => setErr(err?.response?.data?.msg));
     }
   }, [slug]);
-
-  console.log(slug);
 
   return (
     <div className="flex items-center justify-center min-h-[98vh] ">

@@ -14,20 +14,20 @@ const CardHorizontal: React.FC<IProps> = ({ blog }) => {
       <Link className="w-[40%]" to={`/blog/${blog._id}`}>
         <img
           className="object-fill overflow-hidden h-40 rounded-t-lg w-full rounded-none rounded-l-lg"
-          src={blog.thumbnail as string}
+          src={blog?.thumbnail as string}
           alt="thumbnail"
         />
       </Link>
 
       <div className="flex w-[60%]  flex-col justify-between p-4 overflow-hidden text-ellipsis  leading-normal">
         <Link
-          to={`/blog/${blog._id}`}
+          to={`/blog/${blog?._id}`}
           className="mb-2 w-full text-2xl font-bold tracking-tight text-ellipsis overflow-hidden whitespace-nowrap text-gray-900"
         >
-          {blog.title}
+          {blog?.title}
         </Link>
         <p className="mb-3 w-full font-normal text-ellipsis overflow-hidden whitespace-nowrap  text-gray-700 ">
-          {blog.description}
+          {blog?.description}
         </p>
         <div className="flex w-full justify-between mt-8 ">
           <div className="flex items-center gap-4">

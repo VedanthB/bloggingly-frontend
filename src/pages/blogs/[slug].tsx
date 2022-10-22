@@ -24,27 +24,27 @@ const BlogsByCategory = () => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const category = categories?.find((item) => item.name === slug);
+    const category = categories?.find((item) => item?.name === slug);
 
-    if (category) setCategoryId(category._id);
+    if (category) setCategoryId(category?._id);
   }, [slug, categories]);
 
   useEffect(() => {
     if (!categoryId) return;
 
-    if (blogsByCategory.every((item) => item.id !== categoryId)) {
+    if (blogsByCategory?.every((item) => item.id !== categoryId)) {
       dispatch(
-        getBlogsByCategoryId({ id: categoryId, search: location.search })
+        getBlogsByCategoryId({ id: categoryId, search: location?.search })
       );
     } else {
-      const data = blogsByCategory.find((item) => item.id === categoryId);
+      const data = blogsByCategory?.find((item) => item.id === categoryId);
 
       if (!data) return;
 
-      setBlogs(data.blogs);
-      setTotal(data.total);
+      setBlogs(data?.blogs);
+      setTotal(data?.total);
     }
-  }, [categoryId, blogsByCategory, dispatch, location.search]);
+  }, [categoryId, blogsByCategory, dispatch, location?.search]);
 
   const handlePagination = (num: number) => {
     const search = `?page=${num}`;
@@ -57,8 +57,8 @@ const BlogsByCategory = () => {
   return (
     <div className="w-full  mt-10 min-h-[70vh]">
       <div className="w-full grid grid-cols-4 gap-6 m-auto max-w-7xl">
-        {blogs.map((blog) => (
-          <CardVertical key={blog._id} blog={blog} />
+        {blogs?.map((blog) => (
+          <CardVertical key={blog?._id} blog={blog} />
         ))}
       </div>
       <div className="m-auto max-w-7xl mt-10">

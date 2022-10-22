@@ -10,8 +10,8 @@ const Login = () => {
   const { auth } = useAppSelector((state) => state);
 
   useEffect(() => {
-    if (auth.access_token) navigate("/", { replace: true });
-  }, [auth.access_token, navigate]);
+    if (auth?.access_token) navigate("/", { replace: true });
+  }, [auth?.access_token, navigate]);
 
   return (
     <div className="w-full py-10 px-0 flex items-center min-h-[80vh] justify-center mb-32">

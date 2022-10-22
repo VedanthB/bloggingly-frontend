@@ -1,13 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 
 import NavLinkDropdown from "./NavLinkDropdown";
 
 const NavLinks = () => {
   const { auth } = useAppSelector((state) => state);
-
-  const dispatch = useAppDispatch();
 
   return (
     <ul className="flex p-2 items-center rounded-lg border-gray-100 space-x-8 mt-0 text-sm font-medium border-0 bg-white">

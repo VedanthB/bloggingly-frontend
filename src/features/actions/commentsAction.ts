@@ -1,10 +1,6 @@
 import { IComment } from "./../../utils/TypeScript";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  setAlertError,
-  setAlertLoading,
-  setAlertSuccess,
-} from "../slices/alertSlice";
+import { setAlertError } from "../slices/alertSlice";
 import {
   ICommentState,
   ICreateCommentData,

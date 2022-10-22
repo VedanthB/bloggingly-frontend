@@ -11,7 +11,7 @@ const Profile = () => {
     <div className="w-full max-w-5xl m-auto min-h-[100vh]">
       <div className="w-full flex justify-between gap-8 my-4">
         <div className="md:mt-10 w-full mb-4">
-          {auth.user?._id === slug ? (
+          {auth?.user?._id === slug ? (
             <CurrentUserProfile />
           ) : (
             <UserProfile id={slug as string} />
