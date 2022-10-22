@@ -28,6 +28,7 @@ import {
   getBlogs,
   getBlogsByCategoryId,
   getBlogsByUserId,
+  updateBlog,
 } from "./actions/blogAction";
 
 import {
@@ -67,4 +68,5 @@ export {
   replyComment,
   deleteComment,
   updateSocketState,
+  updateBlog,
 };

@@ -7,12 +7,17 @@ import {
   Quill,
   Tabs,
 } from "../components";
-import { createBlog, setAlertError } from "../features";
+import { createBlog, setAlertError, updateBlog } from "../features";
+import { getAPI } from "../utils/FetchData";
 
-import { IBlog } from "../utils/TypeScript";
-import { validCreateBlog } from "../utils/ValidRegister";
+import { IBlog, IUser } from "../utils/TypeScript";
+import { shallowEqual, validCreateBlog } from "../utils/ValidRegister";
 
-const CreateBlog = () => {
+interface IProps {
+  id?: string;
+}
+
+const CreateBlog: React.FC<IProps> = ({ id }) => {
   const initState = {
     user: "",
     title: "",
@@ -37,6 +42,26 @@ const CreateBlog = () => {
 
   const dispatch = useAppDispatch();
 
+  const [oldData, setOldData] = useState<IBlog>(initState);
+
+  useEffect(() => {
+    if (!id) return;
+
+    getAPI(`blog/${id}`)
+      .then((res) => {
+        setBlog(res.data);
+        setBody(res.data.content);
+        setOldData(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      setBlog(initState);
+      setBody("");
+      setOldData(initState);
+    };
+  }, [id]);
+
   useEffect(() => {
     const div = divRef.current;
     if (!div) return;
@@ -57,7 +82,19 @@ const CreateBlog = () => {
 
     let newData = { ...blog, content: body };
 
-    dispatch(createBlog({ blog: newData, token: auth.access_token }));
+    if (id) {
+      if ((blog.user as IUser)._id !== auth.user?._id)
+        return dispatch(setAlertError({ error: "Invalid Authentication." }));
+
+      const result = shallowEqual(oldData, newData);
+
+      if (result)
+        return dispatch(setAlertError({ error: "The data did not change." }));
+
+      dispatch(updateBlog({ blog: newData, token: auth.access_token }));
+    } else {
+      dispatch(createBlog({ blog: newData, token: auth.access_token }));
+    }
   };
 
   if (!auth.access_token) return <NotFound />;
@@ -65,7 +102,7 @@ const CreateBlog = () => {
   return (
     <div className="my-4 min-h-[100vh]">
       <div className="w-full max-w-5xl m-auto">
-        <Tabs tab={tab} setTab={setTab} />
+        {!id && <Tabs tab={tab} setTab={setTab} />}
 
         <div className="w-full h-full mt-10 p-10 rounded bg-white">
           {tab === "Edit" ? (
@@ -80,7 +117,7 @@ const CreateBlog = () => {
                   type="button"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  Create Blog
+                  {id ? "Update Post" : "Create Post"}
                 </button>
                 <button
                   type="button"
@@ -91,7 +128,7 @@ const CreateBlog = () => {
               </div>
             </>
           ) : (
-            <PreviewBlog ref={divRef} body={body} blog={blog} />
+            !id && <PreviewBlog ref={divRef} body={body} blog={blog} />
           )}
         </div>
       </div>
