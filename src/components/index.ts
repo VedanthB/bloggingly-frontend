@@ -15,6 +15,7 @@ import Tabs from "./tabs/Tabs";
 import PreviewBlog from "./previewBlog/PreviewBlog";
 import CardVertical from "./cards/CardVertical";
 import Pagination from "./global/Pagination/Pagination";
+import Comments from "./comments";
 
 export {
   NotFound,
@@ -36,4 +37,5 @@ export {
   PreviewBlog,
   Pagination,
   CardVertical,
+  Comments,
 };
