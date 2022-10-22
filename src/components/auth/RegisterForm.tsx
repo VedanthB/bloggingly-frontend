@@ -9,7 +9,7 @@ const RegisterForm = () => {
 
   const [userLogin, setUserLogin] = useState(initialState);
 
-  const { email, password, name, cf_password } = userLogin;
+  const { email, password, name } = userLogin;
 
   const dispatch = useAppDispatch();
 

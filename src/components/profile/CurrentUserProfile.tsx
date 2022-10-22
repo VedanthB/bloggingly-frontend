@@ -20,7 +20,7 @@ const CurrentUserProfile = () => {
 
   const [userDetails, setUserDetails] = useState<IUserProfile>(initialState);
 
-  const { name, email, avatar, password, cf_password } = userDetails;
+  const { name, avatar, password, cf_password } = userDetails;
 
   const [showPassword, setShowPassword] = useState(false);
 

@@ -1,11 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAPI, postAPI } from "../../utils/FetchData";
 import { imageUpload } from "../../utils/ImageUpload";
-import {
-  setAlertError,
-  setAlertLoading,
-  setAlertSuccess,
-} from "../slices/alertSlice";
+import { setAlertError, setAlertLoading } from "../slices/alertSlice";
 import {
   IBlogs,
   IBlogsCategory,
