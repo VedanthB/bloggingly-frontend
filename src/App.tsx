@@ -3,7 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import { useAppDispatch } from "./app/hooks";
 import { Alert, Footer, Header } from "./components";
 import { PageRender } from "./customRouter";
-import { getBlogs, getCategories, refreshToken } from "./features";
+import {
+  getBlogs,
+  getCategories,
+  refreshToken,
+  updateSocketState,
+} from "./features";
+import io from "socket.io-client";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +21,16 @@ const App = () => {
     dispatch(refreshToken(isLoggedIn));
 
     dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const socket = io();
+
+    dispatch(updateSocketState(socket));
+
+    return () => {
+      socket.close();
+    };
   }, [dispatch]);
 
   return (

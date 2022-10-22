@@ -5,9 +5,14 @@ import { IBlog } from "../../utils/TypeScript";
 import { getAPI } from "../../utils/FetchData";
 import DisplayBlog from "../../components/blog/DisplayBlog";
 import { showErrMsg } from "../../components";
+import { useAppSelector } from "../../app/hooks";
 
 const DetailBlog = () => {
   const id = useParams().slug;
+
+  const {
+    socketState: { socket },
+  } = useAppSelector((state) => state);
 
   const [blog, setBlog] = useState<IBlog>();
 
@@ -32,6 +37,16 @@ const DetailBlog = () => {
 
     return () => setBlog(undefined);
   }, [id]);
+
+  // Join Room
+  useEffect(() => {
+    if (!id || !socket) return;
+    socket.emit("joinRoom", id);
+
+    return () => {
+      socket.emit("outRoom", id);
+    };
+  }, [socket, id]);
 
   return (
     <div className="my-4 min-h-[100vh]">

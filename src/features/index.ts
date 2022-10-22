@@ -38,6 +38,8 @@ import {
   deleteComment,
 } from "./actions/commentsAction";
 
+import { updateSocketState } from "./slices/socketSlice";
+
 export {
   loginUser,
   setAlertLoading,
@@ -64,4 +66,5 @@ export {
   updateComment,
   replyComment,
   deleteComment,
+  updateSocketState,
 };
