@@ -9,3 +9,8 @@ export interface ICreateCommentData {
   data: IComment;
   token: string;
 }
+
+export interface IGetCommentsParams {
+  id: string;
+  num: number;
+}

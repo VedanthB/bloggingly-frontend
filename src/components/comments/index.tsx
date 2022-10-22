@@ -10,6 +10,7 @@ interface IProps {
 
 const Comments: React.FC<IProps> = ({ comment }) => {
   const [showReply, setShowReply] = useState<IComment[]>([]);
+  const [next, setNext] = useState(2);
 
   useEffect(() => {
     if (!comment.replyCM) return;
@@ -32,7 +33,7 @@ const Comments: React.FC<IProps> = ({ comment }) => {
         showReply={showReply}
         setShowReply={setShowReply}
       >
-        {showReply.map((comment, index) => (
+        {showReply.slice(0, next).map((comment, index) => (
           <div
             className="mt-10"
             key={index}
@@ -50,6 +51,23 @@ const Comments: React.FC<IProps> = ({ comment }) => {
             />
           </div>
         ))}
+
+        <div className="cursor-pointer">
+          {showReply.length - next > 0 ? (
+            <small
+              style={{ color: "crimson" }}
+              onClick={() => setNext(next + 5)}
+            >
+              See more comments...
+            </small>
+          ) : (
+            showReply.length > 2 && (
+              <small style={{ color: "teal" }} onClick={() => setNext(2)}>
+                Hide comments...
+              </small>
+            )
+          )}
+        </div>
       </CommentList>
     </div>
   );
