@@ -6,6 +6,7 @@ import profileReducer from "../features/slices/profileSlice";
 import categoryReducer from "../features/slices/categorySlice";
 import blogReducer from "../features/slices/blogSlice";
 import commentsReducer from "../features/slices/commentsSlice";
+import socketReducer from "../features/slices/socketSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     category: categoryReducer,
     blogsState: blogReducer,
     comments: commentsReducer,
+    socketState: socketReducer,
   },
 });
 
