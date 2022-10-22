@@ -17,8 +17,8 @@ const ReplyAvatar: React.FC<IProps> = ({ user, reply_user }) => {
       />
 
       <small>
-        <div className="hover:underline flex items-center justify-center  cursor-pointer">
-          <Link to={`/profile/${user._id}`}>
+        <div className="flex items-center justify-center">
+          <div>
             @{user.name}{" "}
             <small>
               replied to{" "}
@@ -29,7 +29,7 @@ const ReplyAvatar: React.FC<IProps> = ({ user, reply_user }) => {
                 {reply_user?.name}
               </Link>
             </small>{" "}
-          </Link>
+          </div>
         </div>
       </small>
     </div>

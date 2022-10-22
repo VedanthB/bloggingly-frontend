@@ -44,3 +44,24 @@ export const getComments = createAsyncThunk(
     }
   }
 );
+
+export const replyComment = createAsyncThunk(
+  "comments/replyComment",
+  async ({ data, token }: ICreateCommentData, thunkApi) => {
+    try {
+      const res = await postAPI("reply_comment", data, token);
+
+      console.log(res.data.comments, res);
+
+      return {
+        ...res.data,
+        user: data.user,
+        reply_user: data.reply_user,
+      };
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);

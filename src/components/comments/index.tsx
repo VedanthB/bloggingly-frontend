@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IComment } from "../../utils/TypeScript";
 import CommentAvatar from "./CommentAvatar";
 import CommentList from "./CommentList";
@@ -10,6 +10,12 @@ interface IProps {
 
 const Comments: React.FC<IProps> = ({ comment }) => {
   const [showReply, setShowReply] = useState<IComment[]>([]);
+
+  useEffect(() => {
+    if (!comment.replyCM) return;
+
+    setShowReply(comment.replyCM);
+  }, [comment.replyCM]);
 
   return (
     <div

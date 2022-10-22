@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IComment } from "../../utils/TypeScript";
-import { createComment, getComments } from "../actions/commentsAction";
+import {
+  createComment,
+  getComments,
+  replyComment,
+} from "../actions/commentsAction";
 import { ICommentState } from "../types/commentsTypes";
 
 const initialState = {
@@ -22,6 +26,17 @@ const commentsSlice = createSlice({
       state.total = action?.payload?.total as number;
     });
     builder.addCase(getComments.rejected, (state, action) => {});
+    builder.addCase(replyComment.fulfilled, (state, action) => {
+      state.data = state.data.map((item) =>
+        item._id === action.payload.comment_root
+          ? {
+              ...item,
+              replyCM: [...(item.replyCM as []), action.payload],
+            }
+          : item
+      );
+    });
+    builder.addCase(replyComment.rejected, (state, action) => {});
   },
 });
 
