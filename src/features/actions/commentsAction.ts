@@ -5,7 +5,11 @@ import {
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
-import { ICommentState, ICreateCommentData } from "../types/commentsTypes";
+import {
+  ICommentState,
+  ICreateCommentData,
+  IGetCommentsParams,
+} from "../types/commentsTypes";
 import { getAPI, postAPI } from "../../utils/FetchData";
 
 export const createComment = createAsyncThunk(
@@ -25,11 +29,13 @@ export const createComment = createAsyncThunk(
 
 export const getComments = createAsyncThunk(
   "comments/getComments",
-  async (id: string, thunkApi) => {
+  async ({ id, num }: IGetCommentsParams, thunkApi) => {
     try {
-      let limit = 8;
+      let limit = 4;
 
-      const res = await getAPI(`comments/blog/${id}?limit=${limit}`);
+      const res = await getAPI(
+        `comments/blog/${id}?page=${num}&limit=${limit}`
+      );
 
       console.log(res.data.comments, res);
 
