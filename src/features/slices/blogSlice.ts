@@ -1,3 +1,4 @@
+import { updateBlog } from "./../actions/blogAction";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createBlog,
@@ -46,6 +47,8 @@ const blogSlice = createSlice({
       }
     });
     builder.addCase(getBlogsByUserId.rejected, (state, action) => {});
+    builder.addCase(updateBlog.fulfilled, (state, action) => {});
+    builder.addCase(updateBlog.rejected, (state, action) => {});
   },
 });
 

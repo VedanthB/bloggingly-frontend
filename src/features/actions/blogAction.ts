@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAPI, postAPI } from "../../utils/FetchData";
+import { getAPI, postAPI, putAPI } from "../../utils/FetchData";
 import { imageUpload } from "../../utils/ImageUpload";
 import { setAlertError, setAlertLoading } from "../slices/alertSlice";
 import {
@@ -98,6 +98,34 @@ export const getBlogsByUserId = createAsyncThunk(
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
       return { ...res.data, id, search } as IBlogsUser;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const updateBlog = createAsyncThunk(
+  "blog/updateBlog",
+  async ({ blog, token }: ICreateBlog, thunkApi) => {
+    let url;
+
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      if (typeof blog.thumbnail !== "string") {
+        const photo = await imageUpload(blog.thumbnail);
+        url = photo.url;
+      } else {
+        url = blog.thumbnail;
+      }
+
+      const newBlog = { ...blog, thumbnail: url };
+
+      const res = await putAPI(`blog/${newBlog._id}`, newBlog, token);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

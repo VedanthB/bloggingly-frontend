@@ -1,7 +1,8 @@
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 import { IBlog } from "../../utils/TypeScript";
 
 interface IProps {
@@ -9,6 +10,10 @@ interface IProps {
 }
 
 const CardHorizontal: React.FC<IProps> = ({ blog }) => {
+  const { slug } = useParams();
+
+  const { auth } = useAppSelector((state) => state);
+
   return (
     <div className="flex items-center bg-white rounded-lg border shadow-md w-[36rem] hover:bg-gray-100">
       <Link className="w-[40%]" to={`/blog/${blog._id}`}>
@@ -31,7 +36,9 @@ const CardHorizontal: React.FC<IProps> = ({ blog }) => {
         </p>
         <div className="flex w-full justify-between mt-8 ">
           <div className="flex items-center gap-4">
-            <FiEdit2 className="cursor-pointer" onClick={() => {}} />
+            <Link to={`/update_blog/${blog._id}`}>
+              <FiEdit2 className="cursor-pointer" />
+            </Link>
             <AiOutlineDelete
               className="text-red-500 cursor-pointer"
               onClick={() => {}}
