@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { createComment } from "../../features";
+import { createComment, getComments } from "../../features";
 import { IBlog, IComment, IUser } from "../../utils/TypeScript";
 import Comments from "../comments";
 import CommentInput from "../comments/CommentInput";
@@ -13,6 +13,8 @@ interface IProps {
 const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   const { auth, comments } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   const [showComments, setShowComments] = useState<IComment[]>([]);
 
@@ -33,9 +35,23 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   };
 
   useEffect(() => {
-    if (comments?.data.length === 0) return;
     setShowComments(comments?.data);
   }, [comments.data]);
+
+  const fetchComments = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      await dispatch(getComments(id));
+      setLoading(false);
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (!blog._id) return;
+
+    fetchComments(blog._id);
+  }, [blog._id, fetchComments]);
 
   return (
     <div className="w-full h-full mt-10 p-10 rounded bg-white">
@@ -93,9 +109,11 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
         </h5>
       )}
 
-      {showComments?.map((comment, index) => (
-        <Comments key={index} comment={comment} />
-      ))}
+      {loading
+        ? "Loading..."
+        : showComments?.map((comment, index) => (
+            <Comments key={index} comment={comment} />
+          ))}
     </div>
   );
 };

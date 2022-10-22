@@ -5,22 +5,38 @@ import {
   setAlertLoading,
   setAlertSuccess,
 } from "../slices/alertSlice";
-import { ICreateCommentData } from "../types/commentsTypes";
-import { postAPI } from "../../utils/FetchData";
+import { ICommentState, ICreateCommentData } from "../types/commentsTypes";
+import { getAPI, postAPI } from "../../utils/FetchData";
 
 export const createComment = createAsyncThunk(
   "comments/createComment",
   async ({ data, token }: ICreateCommentData, thunkApi) => {
     try {
-      thunkApi.dispatch(setAlertLoading({ loading: true }));
-
       const res = await postAPI("comment", data, token);
 
-      thunkApi.dispatch(setAlertSuccess({ success: res.data.msg }));
-
-      localStorage.setItem("loggedIn", "bloggingly");
-
       return { ...res.data, user: data.user } as IComment;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const getComments = createAsyncThunk(
+  "comments/getComments",
+  async (id: string, thunkApi) => {
+    try {
+      let limit = 8;
+
+      const res = await getAPI(`comments/blog/${id}?limit=${limit}`);
+
+      console.log(res.data.comments, res);
+
+      return {
+        data: res.data.comments as IComment[],
+        total: res.data.total as number,
+      } as ICommentState;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

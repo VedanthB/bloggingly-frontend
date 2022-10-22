@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IComment } from "../../utils/TypeScript";
-import { createComment } from "../actions/commentsAction";
+import { createComment, getComments } from "../actions/commentsAction";
 import { ICommentState } from "../types/commentsTypes";
 
 const initialState = {
@@ -17,6 +17,11 @@ const commentsSlice = createSlice({
       state.data.push(action.payload as IComment);
     });
     builder.addCase(createComment.rejected, (state, action) => {});
+    builder.addCase(getComments.fulfilled, (state, action) => {
+      state.data = action?.payload?.data as IComment[];
+      state.total = action?.payload?.total as number;
+    });
+    builder.addCase(getComments.rejected, (state, action) => {});
   },
 });
 

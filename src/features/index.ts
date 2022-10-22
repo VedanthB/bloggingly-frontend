@@ -30,7 +30,7 @@ import {
   getBlogsByUserId,
 } from "./actions/blogAction";
 
-import { createComment } from "./actions/commentsAction";
+import { createComment, getComments } from "./actions/commentsAction";
 
 export {
   loginUser,
@@ -54,4 +54,5 @@ export {
   getUser,
   getBlogsByUserId,
   createComment,
+  getComments,
 };
