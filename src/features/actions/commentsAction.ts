@@ -9,6 +9,7 @@ import {
   ICommentState,
   ICreateCommentData,
   IGetCommentsParams,
+  IUpdateCommentData,
 } from "../types/commentsTypes";
 import { getAPI, postAPI } from "../../utils/FetchData";
 
@@ -64,6 +65,25 @@ export const replyComment = createAsyncThunk(
         user: data.user,
         reply_user: data.reply_user,
       };
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const updateComment = createAsyncThunk(
+  "comments/updateComment",
+  async ({ data, token }: IUpdateCommentData, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      // const res = await postAPI('comment', data, token)
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      // return res.data,
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

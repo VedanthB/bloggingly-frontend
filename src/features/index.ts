@@ -30,7 +30,12 @@ import {
   getBlogsByUserId,
 } from "./actions/blogAction";
 
-import { createComment, getComments } from "./actions/commentsAction";
+import {
+  createComment,
+  getComments,
+  updateComment,
+  replyComment,
+} from "./actions/commentsAction";
 
 export {
   loginUser,
@@ -55,4 +60,6 @@ export {
   getBlogsByUserId,
   createComment,
   getComments,
+  updateComment,
+  replyComment,
 };

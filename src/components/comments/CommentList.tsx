@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FiEdit2 } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { replyComment } from "../../features/actions/commentsAction";
+import { replyComment, updateComment } from "../../features";
+
 import { IComment } from "../../utils/TypeScript";
 import CommentInput from "./CommentInput";
 
@@ -18,8 +21,12 @@ const CommentList: React.FC<IProps> = ({
   setShowReply,
 }) => {
   const [onReply, setOnReply] = useState(false);
+
   const { auth } = useAppSelector((state) => state);
+
   const dispatch = useAppDispatch();
+
+  const [edit, setEdit] = useState<IComment>();
 
   const handleReply = (body: string) => {
     if (!auth.user || !auth.access_token) return;
@@ -33,32 +40,82 @@ const CommentList: React.FC<IProps> = ({
       comment_root: comment.comment_root || comment._id,
       createdAt: new Date().toISOString(),
     };
-    console.log(data);
+
     setShowReply([data, ...showReply]);
+
     dispatch(replyComment({ data: data, token: auth.access_token }));
+
     setOnReply(false);
+  };
+
+  const handleUpdate = (body: string) => {
+    if (!auth.user || !auth.access_token || !edit) return;
+
+    if (body === edit.content) return setEdit(undefined);
+
+    const newComment = { ...edit, content: body };
+    dispatch(updateComment({ data: newComment, token: auth.access_token }));
+    setEdit(undefined);
+  };
+
+  const Nav = (comment: IComment) => {
+    return (
+      <div className="flex items-center gap-4">
+        <FiEdit2
+          className="text-black cursor-pointer"
+          onClick={() => setEdit(comment)}
+        />
+        <AiOutlineDelete
+          className="text-red-500 cursor-pointer"
+          onClick={() => {}}
+        />
+      </div>
+    );
   };
 
   return (
     <div className="w-full">
       <div className="bg-gray-50 border rounded ml-6">
-        <div
-          className="p-8 "
-          dangerouslySetInnerHTML={{
-            __html: comment.content,
-          }}
-        />
+        {edit ? (
+          <CommentInput callback={handleUpdate} edit={edit} setEdit={setEdit} />
+        ) : (
+          <>
+            <div
+              className="p-8 "
+              dangerouslySetInnerHTML={{
+                __html: comment.content,
+              }}
+            />
 
-        <div className="flex justify-between p-4">
-          <small
-            onClick={() => setOnReply(!onReply)}
-            className="cursor-pointer  text-blue-500 hover:underline "
-          >
-            {onReply ? "Cancel" : "Reply"}
-          </small>
+            <div className="flex justify-between p-4">
+              <small className="flex items-center gap-6">
+                <div
+                  onClick={() => setOnReply(!onReply)}
+                  className="cursor-pointer text-blue-500 "
+                >
+                  {onReply ? "Cancel" : "Reply"}
+                </div>
 
-          <small>{new Date(comment.createdAt).toLocaleString()}</small>
-        </div>
+                <div>
+                  {comment.blog_user_id === auth.user?._id ? (
+                    comment.user._id === auth.user._id ? (
+                      Nav(comment)
+                    ) : (
+                      <AiOutlineDelete
+                        className="text-red-500 cursor-pointer"
+                        onClick={() => {}}
+                      />
+                    )
+                  ) : (
+                    comment.user._id === auth.user?._id && Nav(comment)
+                  )}
+                </div>
+              </small>
+
+              <small>{new Date(comment.createdAt).toLocaleString()}</small>
+            </div>
+          </>
+        )}
       </div>
 
       {onReply && (

@@ -4,6 +4,7 @@ import {
   createComment,
   getComments,
   replyComment,
+  updateComment,
 } from "../actions/commentsAction";
 import { ICommentState } from "../types/commentsTypes";
 
@@ -37,6 +38,8 @@ const commentsSlice = createSlice({
       );
     });
     builder.addCase(replyComment.rejected, (state, action) => {});
+    builder.addCase(updateComment.fulfilled, (state, action) => {});
+    builder.addCase(updateComment.rejected, (state, action) => {});
   },
 });
 

@@ -14,3 +14,8 @@ export interface IGetCommentsParams {
   id: string;
   num: number;
 }
+
+export interface IUpdateCommentData {
+  data: IComment;
+  token: string;
+}
