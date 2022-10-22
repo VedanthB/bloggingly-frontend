@@ -8,7 +8,7 @@ interface IProps {
 
 const CommentAvatar: React.FC<IProps> = ({ user }) => {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-start">
       <img className="w-10 h-10 rounded-full" src={user.avatar} alt="avatar" />
 
       <small className="block text-gray-500 mt-4">
