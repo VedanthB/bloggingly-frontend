@@ -18,7 +18,7 @@ const commentsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(createComment.fulfilled, (state, action) => {
-      state.data.push(action.payload as IComment);
+      state.data.push(action?.payload as IComment);
     });
     builder.addCase(createComment.rejected, (state, action) => {});
     builder.addCase(getComments.fulfilled, (state, action) => {
@@ -28,10 +28,10 @@ const commentsSlice = createSlice({
     builder.addCase(getComments.rejected, (state, action) => {});
     builder.addCase(replyComment.fulfilled, (state, action) => {
       state.data = state.data.map((item) =>
-        item._id === action.payload.comment_root
+        item?._id === action?.payload?.comment_root
           ? {
               ...item,
-              replyCM: [action.payload, ...(item.replyCM as [])],
+              replyCM: [action?.payload, ...(item?.replyCM as [])],
             }
           : item
       );

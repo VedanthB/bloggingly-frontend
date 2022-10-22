@@ -38,7 +38,7 @@ const CreateBlog = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const div = divRef.current;
+    const div = divRef?.current;
     if (!div) return;
 
     const text = div?.innerText as string;
@@ -47,20 +47,20 @@ const CreateBlog = () => {
   }, [body]);
 
   const handleSubmit = async () => {
-    if (!auth.access_token) return;
+    if (!auth?.access_token) return;
 
     const check = validCreateBlog({ ...blog, content: body });
 
     if (check.errLength !== 0) {
-      return dispatch(setAlertError({ error: check.errMsg }));
+      return dispatch(setAlertError({ error: check?.errMsg }));
     }
 
     let newData = { ...blog, content: body };
 
-    dispatch(createBlog({ blog: newData, token: auth.access_token }));
+    dispatch(createBlog({ blog: newData, token: auth?.access_token }));
   };
 
-  if (!auth.access_token) return <NotFound />;
+  if (!auth?.access_token) return <NotFound />;
 
   return (
     <div className="my-4 min-h-[100vh]">

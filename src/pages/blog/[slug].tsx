@@ -22,11 +22,11 @@ const DetailBlog = () => {
 
     getAPI(`blog/${id}`)
       .then((res) => {
-        setBlog(res.data);
+        setBlog(res?.data);
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.response.data.msg);
+        setError(err?.response?.data?.msg);
         setLoading(false);
       });
 

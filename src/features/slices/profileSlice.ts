@@ -17,7 +17,7 @@ const profileSlice = createSlice({
     builder.addCase(resetPassword.fulfilled, (state, action) => {});
     builder.addCase(resetPassword.rejected, (state, action) => {});
     builder.addCase(getUser.fulfilled, (state, action) => {
-      state.users.push(action.payload as IUser);
+      state.users.push(action?.payload as IUser);
     });
     builder.addCase(getUser.rejected, (state, action) => {});
   },

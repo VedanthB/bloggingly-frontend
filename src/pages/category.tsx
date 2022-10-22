@@ -22,10 +22,10 @@ const Category = () => {
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault();
-    if (!auth.access_token || !name) return;
+    if (!auth?.access_token || !name) return;
 
     if (edit) {
-      if (edit.name === name) return;
+      if (edit?.name === name) return;
 
       const data = { ...edit, name };
 
@@ -38,7 +38,7 @@ const Category = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (!auth.access_token) return;
+    if (!auth?.access_token) return;
 
     dispatch(deleteCategory({ id, access_token: auth?.access_token }));
   };
@@ -90,20 +90,20 @@ const Category = () => {
           {categories?.map((category) => (
             <div
               className="flex w-full justify-between p-4 items-center rounded border bg-white border-gray-200 "
-              key={category._id}
+              key={category?._id}
             >
-              <p className="uppercase">{category.name}</p>
+              <p className="uppercase">{category?.name}</p>
 
               <div className="flex items-center gap-4">
                 <FiEdit2
                   className="cursor-pointer"
                   onClick={() => {
                     setEdit(category);
-                    setName(category.name);
+                    setName(category?.name);
                   }}
                 />
                 <AiOutlineDelete
-                  onClick={() => handleDelete(category._id)}
+                  onClick={() => handleDelete(category?._id)}
                   className="cursor-pointer"
                 />
               </div>

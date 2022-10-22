@@ -57,7 +57,7 @@ const Toast = ({ title, body, bgColor }: IProps) => {
               body
             ) : (
               <ul>
-                {body.map((text, index) => (
+                {body?.map((text, index) => (
                   <li key={index}>{text}</li>
                 ))}
               </ul>
