@@ -26,8 +26,6 @@ const App = () => {
   useEffect(() => {
     const socket = io();
 
-    dispatch(updateSocketState(socket));
-
     return () => {
       socket.close();
     };

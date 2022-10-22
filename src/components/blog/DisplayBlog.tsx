@@ -27,6 +27,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     const data = {
       content: body,
       user: auth.user,
+      replyCM: [],
       blog_id: blog._id as string,
       blog_user_id: (blog.user as IUser)._id,
       createdAt: new Date().toISOString(),
