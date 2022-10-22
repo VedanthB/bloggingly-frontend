@@ -9,8 +9,15 @@ import {
   ICommentState,
   ICreateCommentData,
   IGetCommentsParams,
+  IUpdateCommentData,
 } from "../types/commentsTypes";
-import { getAPI, postAPI } from "../../utils/FetchData";
+import { deleteAPI, getAPI, patchAPI, postAPI } from "../../utils/FetchData";
+import {
+  deleteCommentState,
+  deleteReply,
+  updateCommentState,
+  updateReply,
+} from "../slices/commentsSlice";
 
 export const createComment = createAsyncThunk(
   "comments/createComment",
@@ -37,8 +44,6 @@ export const getComments = createAsyncThunk(
         `comments/blog/${id}?page=${num}&limit=${limit}`
       );
 
-      console.log(res.data.comments, res);
-
       return {
         data: res.data.comments as IComment[],
         total: res.data.total as number,
@@ -64,6 +69,54 @@ export const replyComment = createAsyncThunk(
         user: data.user,
         reply_user: data.reply_user,
       };
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const updateComment = createAsyncThunk(
+  "comments/updateComment",
+  async ({ data, token }: IUpdateCommentData, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      await patchAPI(
+        `comment/${data._id}`,
+        {
+          content: data.content,
+        },
+        token
+      );
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      data.comment_root
+        ? thunkApi.dispatch(updateReply(data))
+        : thunkApi.dispatch(updateCommentState(data));
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const deleteComment = createAsyncThunk(
+  "comments/deleteComment",
+  async ({ data, token }: IUpdateCommentData, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      await deleteAPI(`comment/${data._id}`, token);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      data.comment_root
+        ? thunkApi.dispatch(deleteReply(data))
+        : thunkApi.dispatch(deleteCommentState(data));
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
