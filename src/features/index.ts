@@ -35,6 +35,7 @@ import {
   getComments,
   updateComment,
   replyComment,
+  deleteComment,
 } from "./actions/commentsAction";
 
 export {
@@ -62,4 +63,5 @@ export {
   getComments,
   updateComment,
   replyComment,
+  deleteComment,
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { replyComment, updateComment } from "../../features";
+import { deleteComment, replyComment, updateComment } from "../../features";
 
 import { IComment } from "../../utils/TypeScript";
 import CommentInput from "./CommentInput";
@@ -67,10 +67,15 @@ const CommentList: React.FC<IProps> = ({
         />
         <AiOutlineDelete
           className="text-red-500 cursor-pointer"
-          onClick={() => {}}
+          onClick={() => handleDelete(comment)}
         />
       </div>
     );
+  };
+
+  const handleDelete = (comment: IComment) => {
+    if (!auth.user || !auth.access_token) return;
+    dispatch(deleteComment({ data: comment, token: auth.access_token }));
   };
 
   return (
@@ -103,7 +108,7 @@ const CommentList: React.FC<IProps> = ({
                     ) : (
                       <AiOutlineDelete
                         className="text-red-500 cursor-pointer"
-                        onClick={() => {}}
+                        onClick={() => handleDelete(comment)}
                       />
                     )
                   ) : (
