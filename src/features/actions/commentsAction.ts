@@ -23,9 +23,7 @@ export const createComment = createAsyncThunk(
   "comments/createComment",
   async ({ data, token }: ICreateCommentData, thunkApi) => {
     try {
-      const res = await postAPI("comment", data, token);
-
-      return { ...res.data, user: data.user } as IComment;
+      await postAPI("comment", data, token);
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
@@ -60,15 +58,7 @@ export const replyComment = createAsyncThunk(
   "comments/replyComment",
   async ({ data, token }: ICreateCommentData, thunkApi) => {
     try {
-      const res = await postAPI("reply_comment", data, token);
-
-      console.log(res.data.comments, res);
-
-      return {
-        ...res.data,
-        user: data.user,
-        reply_user: data.reply_user,
-      };
+      await postAPI("reply_comment", data, token);
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
@@ -83,13 +73,7 @@ export const updateComment = createAsyncThunk(
     try {
       thunkApi.dispatch(setAlertLoading({ loading: true }));
 
-      await patchAPI(
-        `comment/${data._id}`,
-        {
-          content: data.content,
-        },
-        token
-      );
+      await patchAPI(`comment/${data._id}`, { data }, token);
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
