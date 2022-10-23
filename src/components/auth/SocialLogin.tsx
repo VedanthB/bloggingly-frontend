@@ -7,7 +7,7 @@ const SocialLogin = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="my-2 flex w-full justify-center items-center">
+    <div className="flex w-full justify-center items-center">
       <GoogleLogin
         onSuccess={(credentialResponse: any) => {
           console.log(credentialResponse);

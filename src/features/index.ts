@@ -5,12 +5,7 @@ import {
   deleteCategory,
 } from "./actions/categoryAction";
 
-import {
-  loginUser,
-  registerUser,
-  refreshToken,
-  logout,
-} from "./actions/authAction";
+import { refreshToken, logout } from "./actions/authAction";
 
 import {
   setAlertLoading,
@@ -43,12 +38,10 @@ import {
 import { updateSocketState } from "./slices/socketSlice";
 
 export {
-  loginUser,
   setAlertLoading,
   setAlertError,
   setAlertSuccess,
   closeToast,
-  registerUser,
   refreshToken,
   logout,
   updateUser,
