@@ -14,7 +14,7 @@ import {
   closeToast,
 } from "./slices/alertSlice";
 
-import { updateUser, resetPassword, getUser } from "./actions/profileAction";
+import { updateUser, getUser } from "./actions/profileAction";
 
 import { setAuth } from "./slices/authSlice";
 
@@ -46,7 +46,6 @@ export {
   logout,
   updateUser,
   setAuth,
-  resetPassword,
   createCategory,
   updateCategory,
   deleteCategory,

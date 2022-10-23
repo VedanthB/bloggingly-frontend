@@ -68,7 +68,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     <div className="w-full h-full mt-10 p-10 rounded bg-white">
       <div className="p-10">
         <div className="w-full mb-10">
-          <h2 className="text-5xl text-gray-800 font-semibold mb-8">
+          <h2 className="text-5xl text-gray-800 font-semibold mb-8   overflow-hidden whitespace-nowrap text-ellipsis">
             {blog.title}
           </h2>
 
@@ -96,10 +96,11 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
         />
 
         <div
+          className="w-full overflow-hidden whitespace-nowrap text-ellipsis"
           dangerouslySetInnerHTML={{
             __html: blog.content,
           }}
-        />
+        ></div>
       </div>
 
       <hr className="my-1" />

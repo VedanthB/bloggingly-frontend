@@ -1,12 +1,10 @@
 import React, { SyntheticEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { resetPassword, updateUser } from "../../features";
+import { updateUser } from "../../features";
 import { InputChange, IUserProfile } from "../../utils/TypeScript";
 
 const CurrentUserProfile = () => {
   const { auth } = useAppSelector((state) => state);
-
-  const { access_token } = auth;
 
   const initialState: IUserProfile = {
     name: auth?.user?.name as string,
@@ -20,11 +18,7 @@ const CurrentUserProfile = () => {
 
   const [userDetails, setUserDetails] = useState<IUserProfile>(initialState);
 
-  const { name, email, avatar, password, cf_password } = userDetails;
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const [showCfPassword, setShowCfPassword] = useState(false);
+  const { name, avatar } = userDetails;
 
   const handleChangeInput = (e: InputChange) => {
     const { value, name } = e.target;
@@ -44,9 +38,6 @@ const CurrentUserProfile = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (avatar || name) dispatch(updateUser({ avatar, name, auth }));
-
-    if (password.length > 0 && auth.access_token)
-      dispatch(resetPassword({ password, cf_password, access_token }));
   };
 
   return (
@@ -98,65 +89,6 @@ const CurrentUserProfile = () => {
                   onChange={handleChangeInput}
                 />
               </div>
-
-              {auth?.user?.type === "register" && (
-                <>
-                  <div className="mb-6">
-                    {auth?.user?.type !== "register" && (
-                      <div className="text-red-500 text-xs text-center mb-4">
-                        * Google Login does not support change password *
-                      </div>
-                    )}
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      Your password
-                    </label>
-                    <input
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      required
-                      onChange={handleChangeInput}
-                      disabled={auth?.user?.type !== "register"}
-                    />
-
-                    <small
-                      className="relative float-right bottom-8 right-2 cursor-pointer"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? "Hide" : "Show"}
-                    </small>
-                  </div>
-
-                  <div className="mb-6">
-                    <label
-                      htmlFor="cf_password"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      Confirm Password
-                    </label>
-                    <input
-                      name="cf_password"
-                      type={showCfPassword ? "text" : "password"}
-                      id="cf_password"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      required
-                      disabled={auth?.user?.type !== "register"}
-                      onChange={handleChangeInput}
-                    />
-
-                    <small
-                      className="relative float-right bottom-8 right-2 cursor-pointer"
-                      onClick={() => setShowCfPassword(!showCfPassword)}
-                    >
-                      {showCfPassword ? "Hide" : "Show"}
-                    </small>
-                  </div>
-                </>
-              )}
 
               <button
                 onClick={(e) => handleSubmit(e)}

@@ -12,7 +12,7 @@ const Home = () => {
     <div className="w-full min-h-screen ">
       <div className="m-auto max-w-7xl ">
         {blogs?.map((blog) => (
-          <div key={blog._id} className="pt-20">
+          <div key={blog._id} className="pt-10">
             {blog.count > 0 && (
               <>
                 <h3>
@@ -24,7 +24,7 @@ const Home = () => {
                   </Link>
                 </h3>
 
-                <hr className="my-6" />
+                <hr className="my-4" />
 
                 <div className="w-full grid grid-cols-4 gap-6">
                   {blog.blogs.map((blog) => (

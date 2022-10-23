@@ -15,10 +15,10 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getBlogs());
-
     const isLoggedIn = localStorage.getItem("loggedIn");
     dispatch(refreshToken(isLoggedIn));
+
+    dispatch(getBlogs());
 
     dispatch(getCategories());
   }, [dispatch]);
