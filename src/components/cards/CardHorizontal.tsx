@@ -2,7 +2,8 @@ import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { deleteBlog } from "../../features";
 import { IBlog } from "../../utils/TypeScript";
 
 interface IProps {
@@ -13,6 +14,22 @@ const CardHorizontal: React.FC<IProps> = ({ blog }) => {
   const { slug } = useParams();
 
   const { auth } = useAppSelector((state) => state);
+
+  const dispatch = useAppDispatch();
+
+  const handleDelete = () => {
+    if (!auth?.user || !auth?.access_token) return;
+
+    if (slug !== auth.user._id)
+      return dispatch({
+        type: "ALERT",
+        payload: { errors: "Invalid Authentication." },
+      });
+
+    if (window.confirm("Do you want to delete this post?")) {
+      dispatch(deleteBlog({ blog: blog, token: auth?.access_token }));
+    }
+  };
 
   return (
     <div className="flex items-center bg-white rounded-lg border shadow-md w-[36rem] hover:bg-gray-100">
@@ -41,7 +58,7 @@ const CardHorizontal: React.FC<IProps> = ({ blog }) => {
             </Link>
             <AiOutlineDelete
               className="text-red-500 cursor-pointer"
-              onClick={() => {}}
+              onClick={() => handleDelete()}
             />
           </div>
 

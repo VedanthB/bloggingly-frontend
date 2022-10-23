@@ -1,4 +1,5 @@
-import { updateBlog } from "./../actions/blogAction";
+import { IBlog } from "./../../utils/TypeScript";
+import { deleteBlog, updateBlog } from "./../actions/blogAction";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createBlog,
@@ -7,6 +8,7 @@ import {
   getBlogsByUserId,
 } from "../actions/blogAction";
 import { IBlogs, IBlogsCategory, IBlogsUser } from "../types/blogTypes";
+import { IUser } from "../../utils/TypeScript";
 
 const initialState = {
   blogs: [] as IBlogs[],
@@ -19,7 +21,16 @@ const blogSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(createBlog.fulfilled, (state, action) => {});
+    builder.addCase(createBlog.fulfilled, (state, action) => {
+      state.blogs = state.blogs.map((item) =>
+        item._id === (action.payload.user as IUser)._id
+          ? {
+              ...item,
+              blogs: [action.payload, ...item.blogs],
+            }
+          : item
+      );
+    });
     builder.addCase(createBlog.rejected, (state, action) => {});
     builder.addCase(getBlogs.fulfilled, (state, action) => {
       state.blogs = action.payload as IBlogs[];
@@ -47,8 +58,32 @@ const blogSlice = createSlice({
       }
     });
     builder.addCase(getBlogsByUserId.rejected, (state, action) => {});
-    builder.addCase(updateBlog.fulfilled, (state, action) => {});
+    builder.addCase(updateBlog.fulfilled, (state, action) => {
+      state.userBlogs = state.userBlogs.map((item) =>
+        item.id === (action.payload?.user as IUser)._id
+          ? {
+              ...item,
+              blogs: item.blogs.map((blog) =>
+                blog._id === action.payload?._id ? action.payload : blog
+              ),
+            }
+          : item
+      ) as IBlogsUser[];
+    });
     builder.addCase(updateBlog.rejected, (state, action) => {});
+    builder.addCase(deleteBlog.fulfilled, (state, action) => {
+      state.userBlogs = state.userBlogs.map((item) =>
+        item.id === (action.payload?.user as IUser)._id
+          ? {
+              ...item,
+              blogs: item.blogs.filter(
+                (blog) => blog._id !== action.payload?._id
+              ),
+            }
+          : item
+      );
+    });
+    builder.addCase(deleteBlog.rejected, (state, action) => {});
   },
 });
 

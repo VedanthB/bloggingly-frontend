@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className="w-full min-h-screen ">
       <div className="m-auto max-w-7xl ">
-        {blogs.map((blog) => (
+        {blogs?.map((blog) => (
           <div key={blog._id} className="pt-20">
             {blog.count > 0 && (
               <>
