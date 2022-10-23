@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
   CreateBlogForm,
@@ -34,6 +35,8 @@ const CreateBlog: React.FC<IProps> = ({ id }) => {
 
   const divRef = useRef<HTMLDivElement>(null);
 
+  const navigate = useNavigate();
+
   const [text, setText] = useState("");
 
   const [tab, setTab] = useState("Edit");
@@ -55,10 +58,20 @@ const CreateBlog: React.FC<IProps> = ({ id }) => {
       })
       .catch((err) => console.log(err));
 
+    const initData = {
+      user: "",
+      title: "",
+      content: "",
+      description: "",
+      thumbnail: "",
+      category: "",
+      createdAt: new Date().toISOString(),
+    };
+
     return () => {
-      setBlog(initState);
+      setBlog(initData);
       setBody("");
-      setOldData(initState);
+      setOldData(initData);
     };
   }, [id]);
 
@@ -92,6 +105,7 @@ const CreateBlog: React.FC<IProps> = ({ id }) => {
         return dispatch(setAlertError({ error: "The data did not change." }));
 
       dispatch(updateBlog({ blog: newData, token: auth.access_token }));
+      navigate(`/blog/${id}`);
     } else {
       dispatch(createBlog({ blog: newData, token: auth.access_token }));
     }

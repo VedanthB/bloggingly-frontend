@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAPI, postAPI, putAPI } from "../../utils/FetchData";
+import { deleteAPI, getAPI, postAPI, putAPI } from "../../utils/FetchData";
 import { imageUpload } from "../../utils/ImageUpload";
+import { IBlog } from "../../utils/TypeScript";
 import { setAlertError, setAlertLoading } from "../slices/alertSlice";
 import {
   IBlogs,
@@ -30,9 +31,9 @@ export const createBlog = createAsyncThunk(
 
       const res = await postAPI("blog", newBlog, token);
 
-      console.log(res);
-
       thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return res.data;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
@@ -126,6 +127,27 @@ export const updateBlog = createAsyncThunk(
       const res = await putAPI(`blog/${newBlog._id}`, newBlog, token);
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return blog;
+    } catch (err: any) {
+      thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
+
+      thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
+export const deleteBlog = createAsyncThunk(
+  "blog/deleteBlog",
+  async ({ blog, token }: ICreateBlog, thunkApi) => {
+    try {
+      thunkApi.dispatch(setAlertLoading({ loading: true }));
+
+      await deleteAPI(`blog/${blog._id}`, token);
+
+      thunkApi.dispatch(setAlertLoading({ loading: false }));
+
+      return blog;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 

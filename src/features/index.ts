@@ -29,6 +29,7 @@ import {
   getBlogsByCategoryId,
   getBlogsByUserId,
   updateBlog,
+  deleteBlog,
 } from "./actions/blogAction";
 
 import {
@@ -69,4 +70,5 @@ export {
   deleteComment,
   updateSocketState,
   updateBlog,
+  deleteBlog,
 };

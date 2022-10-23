@@ -18,6 +18,8 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export const socket = io();
 
+console.log(socket);
+
 let socketIoMiddleware = createSocketIoMiddleware(socket, "socket/");
 
 export type AppThunk<ReturnType = void> = ThunkAction<
