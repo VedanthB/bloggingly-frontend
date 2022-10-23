@@ -8,7 +8,7 @@ interface IProps {
 
 const CardVertical: React.FC<IProps> = ({ blog }) => {
   return (
-    <div className="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md">
+    <div className="w-[20rem] bg-white  rounded-lg border border-gray-200 shadow-md">
       <Link className="cursor-pointer" to={`/blog/${blog._id}`}>
         <img
           className="rounded-t-lg overflow-hidden object-cover h-48 w-full"
@@ -18,7 +18,7 @@ const CardVertical: React.FC<IProps> = ({ blog }) => {
       </Link>
       <div className="p-5 ">
         <Link className="cursor-pointer" to={`/blog/${blog._id}`}>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+          <h5 className="mb-2 text-2xl overflow-hidden whitespace-nowrap text-ellipsis font-bold tracking-tight text-gray-900 ">
             {blog.title}
           </h5>
         </Link>

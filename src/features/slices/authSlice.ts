@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  googleLogin,
-  loginUser,
-  logout,
-  refreshToken,
-  registerUser,
-} from "../actions/authAction";
+import { googleLogin, logout, refreshToken } from "../actions/authAction";
 import { IAuth } from "../types/authTypes";
 
 const initialState = {
@@ -24,14 +18,6 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.msg = action.payload?.msg;
-      state.access_token = action.payload?.access_token;
-      state.user = action.payload?.user;
-    });
-    builder.addCase(loginUser.rejected, (state, action) => {});
-    builder.addCase(registerUser.fulfilled, (state, action) => {});
-    builder.addCase(registerUser.rejected, (state, action) => {});
     builder.addCase(refreshToken.fulfilled, (state, action) => {
       state.msg = action.payload?.msg;
       state.access_token = action.payload?.access_token;

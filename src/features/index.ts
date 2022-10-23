@@ -5,12 +5,7 @@ import {
   deleteCategory,
 } from "./actions/categoryAction";
 
-import {
-  loginUser,
-  registerUser,
-  refreshToken,
-  logout,
-} from "./actions/authAction";
+import { refreshToken, logout } from "./actions/authAction";
 
 import {
   setAlertLoading,
@@ -19,7 +14,7 @@ import {
   closeToast,
 } from "./slices/alertSlice";
 
-import { updateUser, resetPassword, getUser } from "./actions/profileAction";
+import { updateUser, getUser } from "./actions/profileAction";
 
 import { setAuth } from "./slices/authSlice";
 
@@ -43,17 +38,14 @@ import {
 import { updateSocketState } from "./slices/socketSlice";
 
 export {
-  loginUser,
   setAlertLoading,
   setAlertError,
   setAlertSuccess,
   closeToast,
-  registerUser,
   refreshToken,
   logout,
   updateUser,
   setAuth,
-  resetPassword,
   createCategory,
   updateCategory,
   deleteCategory,
