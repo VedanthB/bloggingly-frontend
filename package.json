@@ -2,6 +2,7 @@
   "name": "bloggingly-frontend",
   "proxy": "http://localhost:4200",
   "version": "0.1.0",
+  "main": "dist/index.js",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.3",
@@ -31,6 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "build-tsc": "tsc",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.ts{,x}",
     "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
