@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { getAPI } from "../../../utils/FetchData";
+import { IBlog } from "../../../utils/TypeScript";
+import SearchCard from "./SearchCard";
 
 const Search = () => {
+  const [search, setSearch] = useState("");
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(async () => {
+      if (search.length < 2) return setBlogs([]);
+
+      try {
+        const res = await getAPI(`search/blogs?title=${search}`);
+        setBlogs(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }, 400);
+
+    return () => clearTimeout(delayDebounce);
+  }, [search]);
+
+  useEffect(() => {
+    setSearch("");
+    setBlogs([]);
+  }, [pathname]);
+
   return (
-    <form className="flex items-center w-96">
+    <div className="flex items-center w-[40rem]">
       <label htmlFor="search" className="sr-only">
         Search
       </label>
@@ -23,13 +52,24 @@ const Search = () => {
           </svg>
         </div>
         <input
+          value={search}
           type="text"
+          onChange={(e) => setSearch(e.target.value)}
           id="search"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           placeholder="Search"
         />
       </div>
-    </form>
+      {search.length >= 2 && (
+        <div className="absolute top-16 px-4 py-6  w-100 rounded w-[40rem] bg-white shadow-sm border overflow-hidden z-10">
+          {blogs.length ? (
+            blogs.map((blog) => <SearchCard key={blog._id} blog={blog} />)
+          ) : (
+            <h3 className="text-center">No Blogs</h3>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
