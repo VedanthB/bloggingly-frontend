@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+# about
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+bloogingly  is a blogging platform, where you can upload and view blogs and create your own blog page. It’s built using TypeScript, React, Redux Toolkit, Tailwind CSS, React Quill Markdown Editor for the frontend and Node Express and TypeScript for the backend. 
 
-## Available Scripts
+[view live app](https://bloggingly-frontend.vercel.app/)  |  [GitHub Source Code](https://github.com/VedanthB/bloggingly-frontend)  | [Backend Github Repo Link](https://github.com/VedanthB/bloggingly-backend) |  [Backend Live Link](https://github.com/VedanthB/bloggingly-backend) |  Backend Documentation
 
-In the project directory, you can run:
+# tech Stack
 
-### `npm start`
+**Client:** TypeScript, React, Redux Toolkit, TailwindCSS,  React Quill Markdown Editor
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Server:** Node, Express, TypeScript
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# features
 
-### `npm test`
+- Google Auth using OAuth
+- Upload and Create Blogs with a markdown editor
+- Edit and Delete blogs
+- Edit Profile
+- Pagination for blogs
+- Search using Search Index in mongodb
+- Markdown Editor
+- Upload images to cloudinary.
+- Pagination for posts and comments.
+- Add comments to blogs
+- Reply to comments
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# images
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img width="1440" alt="Screenshot 2022-10-28 at 7 54 06 PM" src="https://user-images.githubusercontent.com/75097551/198646850-4e7d78f4-e2d1-4469-8b7b-d9fea0d5acd8.png">
+<img width="1440" alt="Screenshot 2022-10-28 at 6 28 54 PM" src="https://user-images.githubusercontent.com/75097551/198646860-b24b6af7-f6df-426b-801e-ed1c8e707fde.png">
+<img width="1440" alt="Screenshot 2022-10-28 at 7 54 20 PM" src="https://user-images.githubusercontent.com/75097551/198646746-9b7f6a96-e462-44ee-b5c2-7eed084cf90f.png">
+<img width="1440" alt="Screenshot 2022-10-28 at 7 54 10 PM" src="https://user-images.githubusercontent.com/75097551/198646838-9ad47976-4e71-4bc1-9b60-1842775ea99b.png">
