@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { NavigateFunction } from "react-router-dom";
 import { deleteAPI, getAPI, postAPI, putAPI } from "../../utils/FetchData";
 import { imageUpload } from "../../utils/ImageUpload";
 import { setAlertError, setAlertLoading } from "../slices/alertSlice";
@@ -11,9 +12,13 @@ import {
   IGetBlogsByUserIdParams,
 } from "../types/blogTypes";
 
+interface IAddBlog extends ICreateBlog {
+  navigate: NavigateFunction;
+}
+
 export const createBlog = createAsyncThunk(
   "blog/createBlog",
-  async ({ blog, token }: ICreateBlog, thunkApi) => {
+  async ({ blog, token, navigate }: IAddBlog, thunkApi) => {
     let url;
 
     try {
@@ -32,6 +37,9 @@ export const createBlog = createAsyncThunk(
 
       thunkApi.dispatch(setAlertLoading({ loading: false }));
 
+      thunkApi.dispatch(getBlogs());
+
+      navigate("/");
       return res.data;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));

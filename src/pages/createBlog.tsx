@@ -107,7 +107,9 @@ const CreateBlog: React.FC<IProps> = ({ id }) => {
       dispatch(updateBlog({ blog: newData, token: auth.access_token }));
       navigate(`/blog/${id}`);
     } else {
-      dispatch(createBlog({ blog: newData, token: auth.access_token }));
+      dispatch(
+        createBlog({ blog: newData, token: auth.access_token, navigate })
+      );
     }
   };
 
