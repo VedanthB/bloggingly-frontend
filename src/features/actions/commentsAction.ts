@@ -23,7 +23,9 @@ export const createComment = createAsyncThunk(
   "comments/createComment",
   async ({ data, token }: ICreateCommentData, thunkApi) => {
     try {
-      await postAPI("comment", data, token);
+      const res = await postAPI("comment", data, token);
+
+      return { ...res.data, user: data.user } as IComment;
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
@@ -58,7 +60,13 @@ export const replyComment = createAsyncThunk(
   "comments/replyComment",
   async ({ data, token }: ICreateCommentData, thunkApi) => {
     try {
-      await postAPI("reply_comment", data, token);
+      const res = await postAPI("reply_comment", data, token);
+
+      return {
+        ...res.data,
+        user: data.user,
+        reply_user: data.reply_user,
+      };
     } catch (err: any) {
       thunkApi.dispatch(setAlertError({ error: err.response.data.msg }));
 
